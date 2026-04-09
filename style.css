@@ -1,0 +1,17 @@
+/* style.css file - this contains all of our custom styles that we will use in our website */
+.page-colour {
+    background-color: white;
+}
+
+/* For the containers */
+.bg-container {
+    background-color: lightgray;
+}
+
+.container-text {
+    color: black;
+}
+
+.bg-navbar {
+  background-image: linear-gradient(to right, indigo , purple);
+}
