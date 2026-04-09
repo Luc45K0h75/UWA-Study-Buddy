@@ -8,10 +8,48 @@
     background-color: lightgray;
 }
 
+/* Column Colours */
+.col-bg-primary {
+    background-color: blue;
+}
+
+.col-bg-secondary {
+    background-color: rgb(121, 17, 121);
+}
+
+.col-bg-tertiary {
+    background-color: palevioletred;
+}
+
+.col-bg-quarternary {
+    background-color: orangered;
+}
+
+.col-border {
+    border: 5px solid lightgray;
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.welcome-buttoms {
+    color: white !important;
+}
+
 .container-text {
     color: black;
 }
 
+/* for the navbar */
 .bg-navbar {
   background-image: linear-gradient(to right, indigo , purple);
+}
+
+.login-button {
+    margin-left: auto;
+    margin-right: 20px; /* Shifts the button away from the right */
+    background-color: green;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 5px;
 }

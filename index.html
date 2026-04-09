@@ -23,23 +23,67 @@
                 <!-- Put you links in double quotes after href-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create</a>
+                        <a class="nav-link" href="createGroup.html">Create a Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="myGroups.html">My Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewGroups.html">View Groups</a>
                     </li>
                 </ul>
             </div>
         </div>
+
+        <!-- Login button -->
+         <button class="login-button" onclick="window.location.href='login.html'">Login</button>
     </nav>
 
-    <div class="container-fluid p-5 my-5 bg-container container-text opacity-75">
-        <h1 class="display-1 text-center">UWA Study Buddy</h1>
-        <p class="lead">This is an example container for which you can put information into.</p>
-        <p class="lead">This is some text.</p>
+    <!-- Container that containing search bar where you can search by filters-->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class = "row">
+            <div class = "col">
+                <h1 class="display-1 text-center">Welcome to UWA Study Buddy!</h1>
+                <p class="lead text-center">See below to get started!</p>
+            </div>
+        </div>
+        <!-- Search Bar (by Filters) -->
+        <div class = "row">
+            <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
+                <h5 class="text-center">Discover Study Groups</h5>
+                <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='viewGroups.html'">Click here to discover!</button>
+                </div>
+            </div>
+            
+            <!-- View My Groups -->
+            <div class = "col-sm-3 col-bg-secondary col-border welcome-buttoms">
+                <h5 class="text-center">View my Groups</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='myGroups.html'">Click here to view!</button>
+                </div>
+            </div>
+
+            <!-- Create Study Group -->
+            <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
+                <h5 class="text-center" >Create a Study Group</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='createGroup.html'">Click here to create!</button>
+                </div>
+            </div>
+
+            <!-- This will be changed later as notifications will be a pop-up -->
+            <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
+                <h5 class="text-center">Notifications</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'">See notifications</button>  
+            </div>
+        </div>
+        
     </div>
 
 </body>
