@@ -6,6 +6,9 @@
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!--Imports bootstrap icons for use in the html file.-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <!--Imports Lucas's CSS file that overlays bootstrap-->
     <link rel="stylesheet", href="style.css">
 
@@ -42,15 +45,16 @@
          <button class="login-button" onclick="window.location.href='login.html'">Login</button>
     </nav>
 
-    <!-- Container that containing search bar where you can search by filters-->
+    <!-- Welcome Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
         <div class = "row">
             <div class = "col">
-                <h1 class="display-1 text-center">Welcome to UWA Study Buddy!</h1>
-                <p class="lead text-center">See below to get started!</p>
+                <h3 class="display-3 text-center">Welcome back, {Username}!</h3>
+                <!-- Subheading-->
+                <h5 class="card-subtitle text-center pb-3">Select one of the options below to get started!</h5>
             </div>
         </div>
-        <!-- Search Bar (by Filters) -->
+        <!-- Features -->
         <div class = "row">
             <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
                 <h5 class="text-center">Discover Study Groups</h5>
@@ -81,9 +85,60 @@
                 <h5 class="text-center">Notifications</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'">See notifications</button>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Events (shows your 3 closest upcoming events) -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <!-- Intro -->
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">My Upcoming Events</h1>
+                <p class="lead">See your upcoming events here!</p>
+            </div>
+        </div>
+
+        <!-- Event names-->
+        <div class = "row">
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
             </div>
         </div>
         
+        <div class="row">
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <h1 class="display-5">New Groups</h1>
+        <p class="lead">Take a look at some of the latest study groups that have been created!</p>
     </div>
 
 </body>
