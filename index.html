@@ -6,6 +6,9 @@
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!--Imports bootstrap icons for use in the html file.-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <!--Imports Lucas's CSS file that overlays bootstrap-->
     <link rel="stylesheet", href="style.css">
 
@@ -23,23 +26,153 @@
                 <!-- Put you links in double quotes after href-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create</a>
+                        <a class="nav-link" href="createGroup.html">Create a Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="myGroups.html">My Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewGroups.html">View Groups</a>
                     </li>
                 </ul>
             </div>
         </div>
+
+        <!-- Login button -->
+         <button class="login-button" onclick="window.location.href='login.html'">Login</button>
     </nav>
 
-    <div class="container-fluid p-5 my-5 bg-container container-text opacity-75">
-        <h1 class="display-1 text-center">UWA Study Buddy</h1>
-        <p class="lead">This is an example container for which you can put information into.</p>
-        <p class="lead">This is some text.</p>
+    <!-- Welcome Container -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class = "row">
+            <div class = "col">
+                <h3 class="display-3 text-center">Welcome back, {Username}!</h3>
+                <!-- Subheading-->
+                <h5 class="card-subtitle text-center pb-3">Select one of the options below to get started!</h5>
+            </div>
+        </div>
+        <!-- Features -->
+        <div class = "row">
+            <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
+                <h5 class="text-center">Discover Study Groups</h5>
+                <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='viewGroups.html'">Click here to discover!</button>
+                </div>
+            </div>
+            
+            <!-- View My Groups -->
+            <div class = "col-sm-3 col-bg-secondary col-border welcome-buttoms">
+                <h5 class="text-center">View my Groups</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='myGroups.html'">Click here to view!</button>
+                </div>
+            </div>
+
+            <!-- Create Study Group -->
+            <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
+                <h5 class="text-center" >Create a Study Group</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='createGroup.html'">Click here to create!</button>
+                </div>
+            </div>
+
+            <!-- This will be changed later as notifications will be a pop-up -->
+            <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
+                <h5 class="text-center">Notifications</h5>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'">See notifications</button>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Events (shows your 3 closest upcoming events) -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <!-- Intro -->
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">My Upcoming Events</h1>
+                <p class="lead">See your upcoming events here!</p>
+            </div>
+        </div>
+
+        <!-- Event names-->
+        <div class = "row">
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+        </div>
+        
+        <!-- Implements a box that shows the details of each event-->
+        <div class="row">
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <h1 class="display-5">New Groups</h1>
+        <p class="lead">Take a look at some of the latest study groups that have been created!</p>
+         <!-- Event names-->
+        <div class = "row">
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Event Name Here}</h5>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Event Time: {Event Time Here}</h5>
+                <h5 class="text-start">Event Location: {Event Location Here}</h5>
+                <h5 class="text-start">Event Description: {Event Description Here}</h5>
+                <h5 class="text-start">Faculty: {Event Group Here}</h5>
+            </div>
+        </div>
     </div>
 
 </body>
