@@ -41,4 +41,62 @@
         <!-- Login button -->
          <button class="login-button" onclick="window.location.href='login.html'">Login</button>
     </nav>
+
+    <!-- Filter Container -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <h5 class="display-5 text-center">Search for an Event</h5>
+        <div class="row">
+            <!-- Filter by Course -->
+            <div class = "col-sm-3 searchbar-secondary-colours searchbar-borders-padding">
+                <h5 class="text-start">Filter by Course:</h5>
+                <select class="form-select">
+                    <option selected>Select Course</option>
+                    <option>CITS3403</option>
+                    <option>CITS1401</option>
+                    <option>CITS1404</option>
+                </select>
+            </div>
+
+            <!-- Filter by Day -->
+            <div class = "col-sm-3 searchbar-secondary-colours searchbar-borders-padding">
+                <h5 class="text-start">Filter by Day:</h5>
+                <select class="form-select">
+                    <option selected>Select Day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                </select>
+            </div>
+
+            <!-- Filter by Time -->
+            <div class = "col-sm-3 searchbar-secondary-colours searchbar-borders-padding">
+                <h5 class="text-start">Filter by Time Range:</h5>
+                <select class="form-select">
+                    <option selected>Select Time Range</option>
+                    <option>9:00 AM - 12:00 PM</option>
+                    <option>12:00 PM - 3:00 PM</option>
+                    <option>3:00 PM - 6:00 PM</option>
+                </select>
+            </div>
+
+            <!-- Filter by Scenario -->
+            <div class = "col-sm-3 searchbar-secondary-colours searchbar-borders-padding">
+                <h5 class="text-start">Filter by Scenario:</h5>
+                <select class="form-select">
+                    <option selected>Select Scenario</option>
+                    <option>Group Study</option>
+                    <option>One-on-One Tutoring</option>
+                    <option>Review Session</option>
+                    <option>Assessment Preparation</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary">Search</button>  
+            </div>
+    </div>
 </body>
