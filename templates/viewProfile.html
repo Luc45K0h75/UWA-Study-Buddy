@@ -1,0 +1,171 @@
+<!doctype html>
+<head>
+    <title>UWA Study Buddy - View Profile</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light bg-gradient">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">UWA Study Buddy</a>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createGroup.html">Create a Group</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myGroups.html">My Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewGroups.html">View Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="viewProfile.html">View Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="login-button" onclick="window.location.href='login.html'">Login</button>
+    </nav>
+
+    <!-- Profile Header -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center mb-4 mb-md-0">
+                <div class="profile-avatar mx-auto d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-fill profile-avatar-icon"></i>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <h1 class="display-4">Student Profile</h1>
+                <h3>{Username Here}</h3>
+                <p class="lead mb-2">Degree/Major: {Degree/Major Here}</p>
+                <p class="lead mb-2">Year Level: {Year Here}</p>
+                <p class="lead">Bio: {Short bio about study interests, goals or preferred study style}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Details -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col">
+                <h2 class="display-6">Profile Details</h2>
+                <p class="lead">A quick overview of this student's study preferences and availability.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">Preferred Units</h5>
+            </div>
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">Availability</h5>
+            </div>
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">Study Style</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <p class="mb-2">• {Unit 1}</p>
+                <p class="mb-2">• {Unit 2}</p>
+                <p class="mb-2">• {Unit 3}</p>
+                <p class="mb-2">• {Unit 4}</p>
+            </div>
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <p class="mb-2">Preferred Day: {Day Here}</p>
+                <p class="mb-2">Preferred Time: {Time Here}</p>
+                <p class="mb-2">Location: {Library / Online / Campus}</p>
+            </div>
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <p class="mb-2">Group Study: {Yes/No}</p>
+                <p class="mb-2">Quiet Study: {Yes/No}</p>
+                <p class="mb-2">Exam Prep Focus: {Yes/No}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Groups -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col">
+                <h2 class="display-6">Joined Study Groups</h2>
+                <p class="lead">Groups this user is currently involved in.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Group Name 1}</h5>
+            </div>
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Group Name 2}</h5>
+            </div>
+            <div class="col-md-4 popup-colours popup-borders-padding">
+                <h5 class="text-center">{Group Name 3}</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Unit: {Unit Here}</h5>
+                <h5 class="text-start">Meeting Time: {Time Here}</h5>
+                <h5 class="text-start">Location: {Location Here}</h5>
+            </div>
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Unit: {Unit Here}</h5>
+                <h5 class="text-start">Meeting Time: {Time Here}</h5>
+                <h5 class="text-start">Location: {Location Here}</h5>
+            </div>
+            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                <h5 class="text-start">Unit: {Unit Here}</h5>
+                <h5 class="text-start">Meeting Time: {Time Here}</h5>
+                <h5 class="text-start">Location: {Location Here}</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements / Stats -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col">
+                <h2 class="display-6">Study Stats</h2>
+                <p class="lead">A simple profile summary for other users to see.</p>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-sm-4 col-bg-primary col-border welcome-buttoms">
+                <h4>Groups Joined</h4>
+                <p class="display-6">{Number of Groups}</p>
+            </div>
+
+            <div class="col-sm-4 col-bg-secondary col-border welcome-buttoms">
+                <h4>Sessions Attended</h4>
+                <p class="display-6">{Sessions Attended}</p>
+            </div>
+
+            <div class="col-sm-4 col-bg-tertiary col-border welcome-buttoms">
+                <h4>Favourite Unit</h4>
+                <p class="display-6">{Favourite Unit}</p>
+            </div>
+        </div>
+    </div>
+</body>
