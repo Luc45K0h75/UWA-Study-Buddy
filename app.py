@@ -1,11 +1,18 @@
 from flask import Flask, render_template
+import os # For the secret key
+from routes.index import index_blueprint # For the index file
+from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 
-@app.route("/")
-@app.route("/index")
-def index():
-    return render_template("index.html")
+# Converts date from datetime (which is what it is stored as) to an actual string date
+@app.template_filter('dateconverter')
+def format_datetime(value):
+    return datetime.fromtimestamp(value).strftime('%d %b %Y %I:%M %p')
+
+# Register blueprint provided in index.py
+app.register_blueprint(index_blueprint)
 
 @app.route("/create-group")
 def create_group():

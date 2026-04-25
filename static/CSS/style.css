@@ -58,6 +58,18 @@
     text-align: center !important;
 }
 
+.popup-tertiary-colours {
+    background-image: linear-gradient(to bottom, darkblue, lightblue) !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.popup-quarternary-colours {
+    background-color: rgb(2, 0, 61) !important;
+    color: white !important;
+    text-align: center !important;
+}
+
 /* for the navbar */
 .bg-navbar {
   background-image: linear-gradient(to right, indigo , purple);
