@@ -42,7 +42,11 @@
         </div>
 
         <!-- Login button -->
+         {% if username %}
+         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">View Profile</button>
+        {% else %}
          <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+         {% endif %}
     </nav>
 
     <!-- Welcome Container -->
