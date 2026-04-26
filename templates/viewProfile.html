@@ -1,45 +1,50 @@
 <!doctype html>
 <head>
-    <title>UWA Study Buddy - View Profile</title>
-
-    <!-- Bootstrap -->
+    <title>UWA Study Buddy</title>
+    <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
+    
+    <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!--Imports Lucas's CSS file that overlays bootstrap-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
+<!-- Navbar -->
 <body class="bg-light bg-gradient">
-    <!-- Navbar -->
+    <!-- Navbar - Uses a custom gradient-->
     <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
         <div class="container-fluid">
+            <!-- UWA Study Budy Logo-->
             <a class="navbar-brand" href="#">UWA Study Buddy</a>
-
+            <!-- List of elements on the navbar -->
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <!-- Put you links in double quotes after href-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="createGroup.html">Create a Group</a>
+                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="myGroups.html">My Groups</a>
+                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="viewGroups.html">View Groups</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="viewProfile.html">View Profile</a>
+                        <a class="nav-link" href="{{ url_for('view_groups') }}">View Groups</a>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <button class="login-button" onclick="window.location.href='login.html'">Login</button>
+        <!-- Login button -->
+        {% if username %}
+         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">View Profile</button>
+        {% else %}
+         <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+        {% endif %}
     </nav>
 
     <!-- Profile Header -->

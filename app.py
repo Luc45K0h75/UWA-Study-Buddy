@@ -30,6 +30,9 @@ def view_groups():
 def login():
     return render_template("login.html")
 
+@app.route("/view-profile")
+def view_profile():
+    return render_template("viewProfile.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
