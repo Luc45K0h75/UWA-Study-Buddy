@@ -1,0 +1,104 @@
+<!--This is where the homepage is-->
+
+<!doctype html>
+<head>
+    <title>UWA Study Buddy</title>
+    <!--Imports bootstrap into the html file.-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!--Imports bootstrap icons for use in the html file.-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!--Imports Lucas's CSS file that overlays bootstrap-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<!-- Navbar -->
+<body class="bg-light bg-gradient">
+    <!-- Navbar - Uses a custom gradient-->
+    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
+        <div class="container-fluid">
+            <!-- UWA Study Budy Logo-->
+            <a class="navbar-brand" href="#">UWA Study Buddy</a>
+            <!-- List of elements on the navbar -->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <!-- Put you links in double quotes after href-->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('view_groups') }}">View Groups</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Login button -->
+         <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+    </nav>
+
+    <!-- Main Content-->
+    <div class="container my-5">
+        <div class="bg-container container-text p-4 rounded">
+            <h1 class="text-center mb-4">Create a Study Group</h1>
+            
+            <form>
+                <div class="mb-3">
+                    <label for="unitCode" class="form-label">Unit Code</label>
+                    <input type="text" class="form-control" id="unitCode" name="unitCode" placeholder="Example: CITS3403" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="unitName" class="form-label">Unit Name</label>
+                    <input type="text" class="form-control" id="unitName" name="unitName" placeholder="Example: Agile Web Development" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="topic" class="form-label">Study Topic</label>
+                    <input type="text" class="form-control" id="topic" name="topic" placeholder="Example: Assignment 2 discussion" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a short description of the group"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="materials" class="form-label">Materials to Discuss</label>
+                    <textarea class="form-control" id="materials" name="materials" rows="3" placeholder="Example: lecture slides, lab work, assignment questions"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="time" class="form-label">Time</label>
+                        <input type="text" class="form-control" id="time" name="time" placeholder="Example: Tuesday 2 PM or TBD" >
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or TBD">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="members" class="form-label">Maximum Members</label>
+                    <input type="number" class="form-control" id="members" name="members" placeholder="Example: 5" min="1" required>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="index.html" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create Group</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
