@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Using the CSS file -->
-    <link rel="stylesheet" href="static/CSS/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="bg-light bg-gradient">
@@ -54,13 +54,13 @@
                             <!-- Username -->
                             <div class="mb-4">
                                 <label for="username" class="form-label">Username:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="validationDefault01" required>
                             </div>
 
                             <!-- Password -->
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control"id="validationDefault02" required>
                             </div>
 
                             <!-- Login button -->
