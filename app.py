@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import os # For the secret key
 from routes.index import index_blueprint # For the index file
 from datetime import datetime
@@ -14,8 +14,31 @@ def format_datetime(value):
 # Register blueprint provided in index.py
 app.register_blueprint(index_blueprint)
 
-@app.route("/create-group")
+# Handles the Create Group page and receives submitted form data
+@app.route("/create-group", methods=["GET", "POST"])
 def create_group():
+    # If the form is submitted, get the values entered by the user
+    if request.method == "POST":
+        unit_code = request.form.get("unitCode")
+        unit_name = request.form.get("unitName")
+        topic = request.form.get("topic")
+        description = request.form.get("description")
+        materials = request.form.get("materials")
+        time = request.form.get("time")
+        location = request.form.get("location")
+        members = request.form.get("members")
+
+        print("New create group form submitted:")
+        print("Unit Code:", unit_code)
+        print("Unit Name:", unit_name)
+        print("Topic:", topic)
+        print("Description:", description)
+        print("Materials:", materials)
+        print("Time:", time)
+        print("Location:", location)
+        print("Maximum Members:", members)
+
+        return redirect(url_for("create_group"))
     return render_template("createGroup.html")
 
 @app.route("/my-groups")
