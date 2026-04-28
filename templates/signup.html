@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+    <title>UWA Study Buddy | Sign-Up </title>
+
+    <!-- Using the Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Using the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-light bg-gradient">
+
+<!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
+        <div class="container-fluid">
+            <!-- UWA Study Budy Logo-->
+            <a class="navbar-brand" href="#">UWA Study Buddy</a>
+            <!-- List of elements on the navbar -->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <!-- Put you links in double quotes after href-->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('view_groups') }}">View Groups</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+ <!-- Creating the Sign-up box-->
+    <div class="container my-5">
+
+        <div class= "row justify-content-center">
+
+            <div class= "col-sm-8 col-md-6 col-lg-4">
+
+                <div class="card mt-5">
+                    <h5 class= "card-header text-center">Sign-Up</h5>
+                    <div class ="card-body">
+                        <h5 class="card-title text-center">Create your profile to get started :)</h5>
+                        <form>
+
+                            <!-- First name -->
+                            <div class="mb-4">
+                                <label for="firstname" class="form-label">Enter your first name:</label>
+                                <input type="text" class="form-control" id="validationDefault01" required>
+                            </div>
+
+                            <!-- Last name -->
+                            <div class="mb-4">
+                                <label for="lastname" class="form-label">Enter your last name:</label>
+                                <input type="text" class="form-control" id="validationDefault02" required>
+                            </div>
+
+                            <!-- Username -->
+                            <div class="mb-4">
+                                <label for="createusername" class="form-label">Create your user name:</label>
+                                <input type="text" class="form-control" id="validationDefault03" required>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-4">
+                                <label for="createpassword" class="form-label">Create your password:</label>
+                                <input type="text" class="form-control" id="validationDefault04" required>
+                            </div>
+
+                            <!-- Degree -->
+                            <div class="mb-4">
+                                <label for="degree" class="form-label">What degree are you studying?</label>
+                                <input type="text" class="form-control" id="validationDefault05" required>
+                            </div>
+
+                            <!-- Graduation year -->
+                            <div class="mb-4">
+                                <label for="graduation" class="form-label">What year do you graduate?</label>
+                                <input type="text" class="form-control" id="validationDefault06" required>
+                            </div>
+
+                            <!-- Create button -->
+                            <button class="btn btn-primary w-100">Save and Create profile</button>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Login option -->
+    <p class="text-center mt-3 mb-0">
+        Already have a profile? <a href="loginpage.html">Login Here!</a>
+    </p>
+
+</body>
+</html>
