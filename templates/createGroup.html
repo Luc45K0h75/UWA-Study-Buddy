@@ -12,6 +12,9 @@
     <!--Imports Lucas's CSS file that overlays bootstrap-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+    <!--Imports the JavaScript file for form validation-->
+    <script src="{{ url_for('static', filename='JS/createGroup.js') }}"></script>
+
 </head>
 
 <!-- Navbar -->
@@ -42,7 +45,7 @@
         </div>
 
         <!-- Login button -->
-         <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+        <a class="login-button" href="{{ url_for('login') }}">Login</a>
     </nav>
 
     <!-- Main Content-->
@@ -50,7 +53,8 @@
         <div class="bg-container container-text p-4 rounded">
             <h1 class="text-center mb-4">Create a Study Group</h1>
             
-            <form>
+            <!-- Send the completed form data to the Flask create_group route using POST -->
+            <form id="createGroupForm" method ="POST" action="{{ url_for('create_group') }}">
                 <div class="mb-3">
                     <label for="unitCode" class="form-label">Unit Code</label>
                     <input type="text" class="form-control" id="unitCode" name="unitCode" placeholder="Example: CITS3403" required>
@@ -94,8 +98,11 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="index.html" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Create Group</button>
+                    <!--Cancel Button-->
+                    <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Cancel</a>
+
+                    <!--Submit button-->
+                    <button type="submit" id="submitButton" class="btn btn-primary">Create Group</button>
                 </div>
             </form>
         </div>
