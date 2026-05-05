@@ -53,6 +53,14 @@ def view_groups():
 def login():
     return render_template("login.html")
 
+@app.route("/sign-up")
+def sign_up():
+    return render_template("signup.html")
+
+@app.route("/login-page")
+def login_page():
+    return render_template("loginpage.html")
+
 @app.route("/view-profile")
 def view_profile():
     return render_template("viewProfile.html")
