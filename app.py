@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os # For the secret key
+from config import Config # For the configuration of the app
 from routes.index import index_blueprint # For the index file
+from flask_sqlalchemy import SQLAlchemy # For the database
+from flask_migrate import Migrate # For database migrations
 from datetime import datetime
 
 app = Flask(__name__)
+app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
+db = SQLAlchemy(app) # Initialises the database
+migrate = Migrate(app, app.db)  
 
 # Converts date from datetime (which is what it is stored as) to an actual string date
 @app.template_filter('dateconverter')
