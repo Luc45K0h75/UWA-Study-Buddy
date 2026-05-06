@@ -1,4 +1,4 @@
-<!--This is where the homepage is-->
+<!--This is where the view groups page is-->
 
 <!doctype html>
 <head>
@@ -19,7 +19,7 @@
     <!-- Navbar - Uses a custom gradient-->
     <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
         <div class="container-fluid">
-            <!-- UWA Study Budy Logo-->
+            <!-- UWA Study Budy Logo -->
             <a class="navbar-brand" href="#">UWA Study Buddy</a>
             <!-- List of elements on the navbar -->
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -48,12 +48,12 @@
     <!-- Filter Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
         <h5 class="display-5 text-center">Discover Groups</h5>
-        <form method="GET" action="{{ url_for('view_groups.view_groups') }}"></form>
+        <form method="GET" action="{{ url_for('view_groups.view_groups') }}">
         <div class="row">
             <!-- Filter by Course -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Faculty:</h5>
-                <select class="form-select">
+                <select name="faculty" class="form-select">
                     <option selected>Select Faculty</option>
                 </select>
             </div>
@@ -61,7 +61,7 @@
             <!-- Filter by Day -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Unit:</h5>
-                <select class="form-select">
+                <select name="unit" class="form-select">
                     <option selected>Select the Unit</option>
                 </select>
             </div>
@@ -69,16 +69,18 @@
             <!-- Filter by Time -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Group Type:</h5>
-                <select class="form-select">
+                <select name="group_type" class="form-select">
                     <option selected>Select a Group Type</option>
                 </select>
             </div>
 
         </div>
-        </form>
+
         <div class="row mt-2">
             <div class="col text-center ">
-                <button type="button" class="btn searchbar-searchbutton">Search</button>  
+                <button type="submit" class="btn searchbar-searchbutton">Search</button>  
             </div>
+        </div>
+        </form>
     </div>
 </body>
