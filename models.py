@@ -1,7 +1,7 @@
 from datetime import datetime
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from app import db
+from extensions import db
 from typing import Optional
 
 # Objects representing entities in the database

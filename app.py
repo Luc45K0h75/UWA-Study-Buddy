@@ -2,23 +2,24 @@ from flask import Flask, render_template, request, redirect, url_for
 import os # For the secret key
 from config import Config # For the configuration of the app
 from routes.index import index_blueprint # For the index file
-from flask_sqlalchemy import SQLAlchemy # For the database
-from flask_migrate import Migrate # For database migrations
+from routes.viewGroups import view_groups_blueprint # For the view groups file
+from extensions import db, migrate # For the database and migration
 from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
-db = SQLAlchemy(app) # Initialises the database
-migrate = Migrate(app, app.db)  
+db.init_app(app)
+migrate.init_app(app, db)
 
 # Converts date from datetime (which is what it is stored as) to an actual string date
 @app.template_filter('dateconverter')
 def format_datetime(value):
     return datetime.fromtimestamp(value).strftime('%d %b %Y %I:%M %p')
 
-# Register blueprint provided in index.py
+# Blueprints for different pages of the website
 app.register_blueprint(index_blueprint)
+app.register_blueprint(view_groups_blueprint)
 
 # Handles the Create Group page and receives submitted form data
 @app.route("/create-group", methods=["GET", "POST"])
@@ -50,10 +51,6 @@ def create_group():
 @app.route("/my-groups")
 def my_groups():
     return render_template("myGroups.html")
-
-@app.route("/view-groups")
-def view_groups():
-    return render_template("viewGroups.html")
 
 @app.route("/login")
 def login():
