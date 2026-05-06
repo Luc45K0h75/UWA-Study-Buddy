@@ -3,6 +3,7 @@ import os # For the secret key
 from config import Config # For the configuration of the app
 from routes.index import index_blueprint # For the index file
 from routes.viewGroups import view_groups_blueprint # For the view groups file
+from routes.create_group import create_group_blueprint # For the create group file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 from models import User #importing the user class from models.py
@@ -21,33 +22,7 @@ def format_datetime(value):
 # Blueprints for different pages of the website
 app.register_blueprint(index_blueprint)
 app.register_blueprint(view_groups_blueprint)
-
-# Handles the Create Group page and receives submitted form data
-@app.route("/create-group", methods=["GET", "POST"])
-def create_group():
-    # If the form is submitted, get the values entered by the user
-    if request.method == "POST":
-        unit_code = request.form.get("unitCode")
-        unit_name = request.form.get("unitName")
-        topic = request.form.get("topic")
-        description = request.form.get("description")
-        materials = request.form.get("materials")
-        time = request.form.get("time")
-        location = request.form.get("location")
-        members = request.form.get("members")
-
-        print("New create group form submitted:")
-        print("Unit Code:", unit_code)
-        print("Unit Name:", unit_name)
-        print("Topic:", topic)
-        print("Description:", description)
-        print("Materials:", materials)
-        print("Time:", time)
-        print("Location:", location)
-        print("Maximum Members:", members)
-
-        return redirect(url_for("create_group"))
-    return render_template("createGroup.html")
+app.register_blueprint(create_group_blueprint)
 
 @app.route("/my-groups")
 def my_groups():

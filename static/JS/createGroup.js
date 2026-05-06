@@ -1,5 +1,6 @@
 // Set up the validation for the create group form 
 function setupCreateGroupForm() {
+    const date = document.getElementById('date');
     const form = document.getElementById('createGroupForm');
     const unitCode = document.getElementById('unitCode');
     const unitName = document.getElementById('unitName');
@@ -42,6 +43,13 @@ function setupCreateGroupForm() {
         if (!unitCodePattern.test(unitCodeValue)) {
             event.preventDefault();
             alert("Please enter a valid unit code, for example CITS3403.");
+            return;
+        }
+
+        // Check that a date has been selected
+        if (date.value === "") {
+            event.preventDefault();
+            alert("Please select a date for the study session.");
             return;
         }
         
