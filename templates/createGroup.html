@@ -79,14 +79,21 @@
                     <label for="materials" class="form-label">Materials to Discuss</label>
                     <textarea class="form-control" id="materials" name="materials" rows="3" placeholder="Example: lecture slides, lab work, assignment questions"></textarea>
                 </div>
-
+                
+                <!-- Date, time and location inputs -->
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="time" class="form-label">Time</label>
-                        <input type="text" class="form-control" id="time" name="time" placeholder="Example: Tuesday 2 PM or TBD" >
+                    <div class="col-md-4 mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
+                        <label for="time" class="form-label">Time </label>
+                        <input type="time" class="form-control" id="time" name="time">
+                        <div class="form-text">Optional — leave blank if TBD</div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or TBD">
                     </div>

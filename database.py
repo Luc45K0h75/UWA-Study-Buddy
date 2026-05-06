@@ -10,3 +10,14 @@ def get_data():
     connection = sqlite3.connect(database) # Creatse a connection to the database
     connection.row_factory = sqlite3.Row # Converts the data so it can be accessed by columns not just index
     return connection 
+
+# Receives the create group form data from routes/create_group.py
+def create_group_in_db(unit_code, unit_name, topic, description, materials, time, location, members):
+    print("Saving group to database:")
+    print(f"  Unit: {unit_code} - {unit_name}")
+    print(f"  Topic: {topic}")
+    print(f"  Description: {description}")
+    print(f"  Materials: {materials}")
+    print(f"  Time: {time}")
+    print(f"  Location: {location}")
+    print(f"  Max Members: {members}")
