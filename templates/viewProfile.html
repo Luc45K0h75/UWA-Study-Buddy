@@ -58,10 +58,10 @@
 
             <div class="col-md-9">
                 <h1 class="display-4">Student Profile</h1>
-                <h3>{Username Here}</h3>
-                <p class="lead mb-2">Degree/Major: {Degree/Major Here}</p>
-                <p class="lead mb-2">Year Level: {Year Here}</p>
-                <p class="lead">Bio: {Short bio about study interests, goals or preferred study style}</p>
+                <h3>{{ username }}</h3>
+                <p class="lead mb-2">Degree/Major: {{ user['Course'] if user else 'Not added yet' }}</p>
+                <p class="lead mb-2">Graduation Year: {{ user['GraduationYear'] if user else 'Not added yet' }}</p>
+                <p class="lead">Bio: This student is using UWA Study Buddy to find and join study groups.</p>
             </div>
         </div>
     </div>
