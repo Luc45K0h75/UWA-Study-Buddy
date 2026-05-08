@@ -29,13 +29,13 @@
                         <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
+                        <a class="nav-link" href="{{ url_for('create_group.create_group') }}">Create a Group</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('view_groups') }}">View Groups</a>
+                        <a class="nav-link" href="{{ url_for('view_groups.view_groups') }}">View Groups</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +69,7 @@
                 <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
                 <div class="text-center">
                     <button type="button" class="btn btn-success"
-                        onclick="window.location.href='{{ url_for('view_groups') }}'">
+                        onclick="window.location.href='{{ url_for('view_groups.view_groups') }}'">
                         Click here to view!
                     </button>
                 </div>
@@ -90,7 +90,7 @@
             <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
                 <h5 class="text-center" >Create a Study Group</h5>
                 <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('view_groups') }}'">Click here to create!</button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group.create_group') }}'">Click here to create!</button>
                 </div>
             </div>
 

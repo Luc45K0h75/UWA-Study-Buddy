@@ -54,41 +54,59 @@
                             <!-- First name -->
                             <div class="mb-4">
                                 <label for="firstname" class="form-label">Enter your first name:</label>
-                                <input type="text" class="form-control" id="validationDefault01" required>
+                                <input type="text" class="form-control" name="firstname" id="validationDefault01" required>
                             </div>
 
                             <!-- Last name -->
                             <div class="mb-4">
                                 <label for="lastname" class="form-label">Enter your last name:</label>
-                                <input type="text" class="form-control" id="validationDefault02" required>
+                                <input type="text" class="form-control" name="lastname" id="validationDefault02" required>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Enter your email:</label>
+                                <input type="email" class="form-control" name="email" id="validationDefault03" required>
+                            </div>
+
+                            <!-- Birthday -->
+                            <div class="mb-4">
+                                <label for="birthday" class="form-label">Enter your birthday:</label>
+                                <input type="datetime" class="form-control" name="birthday" id="validationDefault04" required>
+                            </div>
+
+                            <!-- UWA Student ID (primary key) -->
+                            <div class="mb-4">
+                                <label for="student_id" class="form-label">Enter your UWA Student ID:</label>
+                                <input type="text" class="form-control" name="student_id" id="validationDefault05" required>
                             </div>
 
                             <!-- Username -->
                             <div class="mb-4">
                                 <label for="createusername" class="form-label">Create your user name:</label>
-                                <input type="text" class="form-control" id="validationDefault03" required>
+                                <input type="text" class="form-control" name="username" id="validationDefault06" required>
                             </div>
 
                             <!-- Password -->
                             <div class="mb-4">
                                 <label for="createpassword" class="form-label">Create your password:</label>
-                                <input type="text" class="form-control" id="validationDefault04" required>
+                                <input type="text" class="form-control" name="password" id="validationDefault07" required>
                             </div>
 
-                            <!-- Degree -->
+                            <!-- Course -->
                             <div class="mb-4">
-                                <label for="degree" class="form-label">What degree are you studying?</label>
-                                <input type="text" class="form-control" id="validationDefault05" required>
+                                <label for="course" class="form-label">What course are you studying?</label>
+                                <input type="text" class="form-control" name="course" id="validationDefault08" required>
                             </div>
 
                             <!-- Graduation year -->
                             <div class="mb-4">
                                 <label for="graduation" class="form-label">What year do you graduate?</label>
-                                <input type="text" class="form-control" id="validationDefault06" required>
+                                <input type="text" class="form-control" name="graduation" id="validationDefault09" required>
                             </div>
 
                             <!-- Create button -->
-                            <button class="btn btn-primary w-100">Save and Create profile</button>
+                            <button type="submit" class="btn btn-primary w-100">Save and Create profile</button>
 
 
                         </form>
