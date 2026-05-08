@@ -56,7 +56,57 @@ def login():
 # Handles the View Profile page
 @app.route("/view-profile")
 def view_profile():
-    return render_template("viewProfile.html")
+    from database import get_data
+
+    connection = get_data()
+
+    # Temporary user until login is connected properly
+    student_id = 12345678
+
+    # Get the student's basic profile details
+    user = connection.execute("""
+        SELECT StudentID, Username, Course, GraduationYear, Email
+        FROM User
+        WHERE StudentID = ?
+    """, (student_id,)).fetchone()
+
+    # Get up to 4 units connected to the student's groups
+    preferred_units = connection.execute("""
+        SELECT DISTINCT u.UnitName
+        FROM Unit u
+        JOIN Groups g ON u.UnitID = g.UnitID
+        JOIN StudentGroups sg ON g.GroupID = sg.GroupID
+        WHERE sg.StudentID = ?
+        LIMIT 4
+    """, (student_id,)).fetchall()
+
+    # Get up to 3 groups the student has joined
+    joined_groups = connection.execute("""
+        SELECT g.GroupName, u.UnitName, g.Description
+        FROM Groups g
+        JOIN Unit u ON g.UnitID = u.UnitID
+        JOIN StudentGroups sg ON g.GroupID = sg.GroupID
+        WHERE sg.StudentID = ?
+        LIMIT 3
+    """, (student_id,)).fetchall()
+
+    # Simple stats for the profile page
+    stats = {
+        "groups_joined": len(joined_groups),
+        "sessions_attended": 0,
+        "favourite_unit": preferred_units[0]["UnitName"] if preferred_units else "No unit yet"
+    }
+
+    connection.close()
+
+    return render_template(
+        "viewProfile.html",
+        username=user["Username"] if user else "Student",
+        user=user,
+        preferred_units=preferred_units,
+        joined_groups=joined_groups,
+        stats=stats
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
