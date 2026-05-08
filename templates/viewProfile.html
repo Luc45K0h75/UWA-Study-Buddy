@@ -120,34 +120,28 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 1}</h5>
-            </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 2}</h5>
-            </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 3}</h5>
-            </div>
+            {% if joined_groups %}
+                {% for group in joined_groups %}
+                    <div class="col-md-4 popup-colours popup-borders-padding">
+                        <h5 class="text-center">{{ group['GroupName'] }}</h5>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h5 class="text-start">No joined groups yet.</h5>
+            {% endif %}
         </div>
 
+        {% if joined_groups %}
         <div class="row">
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
+            {% for group in joined_groups %}
+                <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                    <h5 class="text-start">Unit: {{ group['UnitName'] }}</h5>
+                    <h5 class="text-start">Description: {{ group['Description'] }}</h5>
+                    <h5 class="text-start">Status: Joined</h5>
+                </div>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Achievements / Stats -->
