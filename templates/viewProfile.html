@@ -89,10 +89,13 @@
 
         <div class="row">
             <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <p class="mb-2">• {Unit 1}</p>
-                <p class="mb-2">• {Unit 2}</p>
-                <p class="mb-2">• {Unit 3}</p>
-                <p class="mb-2">• {Unit 4}</p>
+                {% if preferred_units %}
+                    {% for unit in preferred_units %}
+                        <p class="mb-2">• {{ unit['UnitName'] }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p class="mb-2">No preferred units yet.</p>
+                {% endif %}
             </div>
             <div class="col-md-4 popup-secondary-colours popup-borders-padding">
                 <p class="mb-2">Preferred Day: {Day Here}</p>
