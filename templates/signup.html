@@ -12,33 +12,9 @@
 
 <body class="bg-light bg-gradient">
 
-<!-- Navbar -->
-    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
-        <div class="container-fluid">
-            <!-- UWA Study Budy Logo-->
-            <a class="navbar-brand" href="#">UWA Study Buddy</a>
-            <!-- List of elements on the navbar -->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <!-- Put you links in double quotes after href-->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('view_groups') }}">View Groups</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {% include 'navbar.html' %}
 
- <!-- Creating the Sign-up box-->
+    <!-- Creating the Sign-up box-->
     <div class="container my-5">
 
         <div class= "row justify-content-center">

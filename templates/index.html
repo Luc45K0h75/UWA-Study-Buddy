@@ -1,6 +1,7 @@
 <!--This is where the homepage is-->
 
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
@@ -60,15 +61,15 @@
             <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
                 <h5 class="text-center" >Create a Study Group</h5>
                 <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group') }}'">Click here to create!</button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group.create_group') }}'">Click here to create!</button>
                 </div>
             </div>
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
-                <h5 class="text-center">Notifications</h5>
+
                 <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'">See notifications</button>  
+                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>See notifications</button>  
                 </div>
             </div>
         </div>
@@ -100,7 +101,7 @@
         <div class="row">
             {% for u in upcoming_events %}
             <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Date: {{ u['Date'] | dateconverter }}</h5>
+                <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
                 <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
                 <h5 class="text-start">Location: {{ u['Location'] }}</h5>
                 <h5 class="text-start">Description: {{ u['Description'] }}</h5>
@@ -145,4 +146,8 @@
         {% endif %}
     </div>
 
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
+</html>

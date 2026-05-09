@@ -28,9 +28,6 @@ app.register_blueprint(create_group_blueprint)
 def my_groups():
     return render_template("myGroups.html")
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
 
 @app.route("/sign-up", methods=["GET", "POST"])
 def sign_up():

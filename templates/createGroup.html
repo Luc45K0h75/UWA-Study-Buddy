@@ -20,7 +20,7 @@
 <!-- Navbar -->
 <body class="bg-light bg-gradient">
     <!-- Navbar - Uses a custom gradient-->
-     
+
     {% include 'navbar.html' %}
 
     <!-- Main Content-->
@@ -29,7 +29,7 @@
             <h1 class="text-center mb-4">Create a Study Group</h1>
             
             <!-- Send the completed form data to the Flask create_group route using POST -->
-            <form id="createGroupForm" method ="POST" action="{{ url_for('create_group') }}">
+            <form id="createGroupForm" method ="POST" action="{{ url_for('create_group.create_group') }}">
                 <div class="mb-3">
                     <label for="unitCode" class="form-label">Unit Code</label>
                     <input type="text" class="form-control" id="unitCode" name="unitCode" placeholder="Example: CITS3403" required>

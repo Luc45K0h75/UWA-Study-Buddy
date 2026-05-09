@@ -22,8 +22,15 @@ def index():
     now = int(datetime.now().timestamp())
 
     # Query to get upcoming events
-    upcoming_events = db.session.scalars(
-        sa.select(Session)
+    upcoming_events = db.session.execute(
+        sa.select(
+            Session.SessionDateTime,
+            Session.Description,
+            Session.Location,
+            SessionType.Name,
+            Groups.GroupName,
+            Unit.UnitName
+        )
         .join(Groups, Session.GroupID == Groups.GroupID)
         .join(SessionType, Session.SessionTypeID == SessionType.SessionTypeID)
         .join(Unit, Groups.UnitID == Unit.UnitID)
@@ -34,16 +41,20 @@ def index():
         )
         .order_by(Session.SessionDateTime.asc())
         .limit(3)
-    ).all()
-
+    ).mappings().all()
     # Query to find 3 most recently created groups
-    new_groups = db.session.scalars(
-        sa.select(Groups)
+    new_groups = db.session.execute(
+        sa.select(
+            Groups.GroupName,
+            Groups.Description,
+            GroupType.Type.label('GroupType'),
+            Unit.UnitName
+        )
         .join(Unit, Groups.UnitID == Unit.UnitID)
         .join(GroupType, Groups.GroupTypeID == GroupType.GroupTypeID)
         .order_by(Groups.CreationDate.desc())
         .limit(3)
-    ).all()
+    ).mappings().all()
 
     # Returns rendered template for use in html
     return render_template("index.html", username=username, upcoming_events=upcoming_events, new_groups=new_groups)

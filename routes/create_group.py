@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from database import create_group_in_db
+from helpers import create_group_in_db
 
 # Creates the blueprint to handle createGroup.html
 create_group_blueprint = Blueprint('create_group', __name__)
