@@ -32,7 +32,7 @@ class Unit(db.Model):
     UnitID: so.Mapped[int] = so.mapped_column(primary_key=True)
     UnitCode: so.Mapped[int] = so.mapped_column(nullable=False)
     UnitName: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    FacultyID: so.Mapped[int] = so.mapped_column(sa.ForeignKey('Faculty.FacultyID'), nullable=False)
+    FacultyID: so.Mapped[Optional[int]] = so.mapped_column(sa.ForeignKey('Faculty.FacultyID'), nullable=True)
 
 class Groups(db.Model):
     __tablename__ = 'Groups'
@@ -42,6 +42,7 @@ class Groups(db.Model):
     Description: so.Mapped[str] = so.mapped_column(sa.String(200), nullable=False)
     CreationDate: so.Mapped[datetime] = so.mapped_column(nullable=False)
     GroupName: so.Mapped[str] = so.mapped_column(nullable=False)
+    MaxMembers: so.Mapped[int] = so.mapped_column(nullable=True)
 
 class SessionType(db.Model):
     __tablename__ = 'SessionType'

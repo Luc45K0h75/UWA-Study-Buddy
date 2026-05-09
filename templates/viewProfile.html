@@ -27,10 +27,10 @@
 
             <div class="col-md-9">
                 <h1 class="display-4">Student Profile</h1>
-                <h3>{Username Here}</h3>
-                <p class="lead mb-2">Degree/Major: {Degree/Major Here}</p>
-                <p class="lead mb-2">Year Level: {Year Here}</p>
-                <p class="lead">Bio: {Short bio about study interests, goals or preferred study style}</p>
+                <h3>{{ username }}</h3>
+                <p class="lead mb-2">Degree/Major: {{ user['Course'] if user else 'Not added yet' }}</p>
+                <p class="lead mb-2">Graduation Year: {{ user['GraduationYear'] if user else 'Not added yet' }}</p>
+                <p class="lead">Bio: This student is using UWA Study Buddy to find and join study groups.</p>
             </div>
         </div>
     </div>
@@ -58,10 +58,13 @@
 
         <div class="row">
             <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <p class="mb-2">• {Unit 1}</p>
-                <p class="mb-2">• {Unit 2}</p>
-                <p class="mb-2">• {Unit 3}</p>
-                <p class="mb-2">• {Unit 4}</p>
+                {% if preferred_units %}
+                    {% for unit in preferred_units %}
+                        <p class="mb-2">• {{ unit['UnitName'] }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p class="mb-2">No preferred units yet.</p>
+                {% endif %}
             </div>
             <div class="col-md-4 popup-secondary-colours popup-borders-padding">
                 <p class="mb-2">Preferred Day: {Day Here}</p>
@@ -86,34 +89,28 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 1}</h5>
-            </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 2}</h5>
-            </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{Group Name 3}</h5>
-            </div>
+            {% if joined_groups %}
+                {% for group in joined_groups %}
+                    <div class="col-md-4 popup-colours popup-borders-padding">
+                        <h5 class="text-center">{{ group['GroupName'] }}</h5>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h5 class="text-start">No joined groups yet.</h5>
+            {% endif %}
         </div>
 
+        {% if joined_groups %}
         <div class="row">
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Unit: {Unit Here}</h5>
-                <h5 class="text-start">Meeting Time: {Time Here}</h5>
-                <h5 class="text-start">Location: {Location Here}</h5>
-            </div>
+            {% for group in joined_groups %}
+                <div class="col-md-4 popup-secondary-colours popup-borders-padding">
+                    <h5 class="text-start">Unit: {{ group['UnitName'] }}</h5>
+                    <h5 class="text-start">Description: {{ group['Description'] }}</h5>
+                    <h5 class="text-start">Status: Joined</h5>
+                </div>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Achievements / Stats -->
@@ -128,17 +125,17 @@
         <div class="row text-center">
             <div class="col-sm-4 col-bg-primary col-border welcome-buttoms">
                 <h4>Groups Joined</h4>
-                <p class="display-6">{Number of Groups}</p>
+                <p class="display-6">{{ stats['groups_joined'] }}</p>
             </div>
 
             <div class="col-sm-4 col-bg-secondary col-border welcome-buttoms">
                 <h4>Sessions Attended</h4>
-                <p class="display-6">{Sessions Attended}</p>
+                <p class="display-6">{{ stats['sessions_attended'] }}</p>
             </div>
 
             <div class="col-sm-4 col-bg-tertiary col-border welcome-buttoms">
                 <h4>Favourite Unit</h4>
-                <p class="display-6">{Favourite Unit}</p>
+                <p class="display-6">{{ stats['favourite_unit'] }}</p>
             </div>
         </div>
     </div>
