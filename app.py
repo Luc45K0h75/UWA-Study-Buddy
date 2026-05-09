@@ -69,7 +69,7 @@ def sign_up():
         Email = request.form.get("email")
         GraduationYear = request.form.get("graduation")
         birthday_string = request.form.get("birthday") #Obtaining the input birthday string
-        Birthday = datetime.strptime(birthday_string, %Y-%m-%d) #converting the birtday string into datetime format
+        Birthday = datetime.strptime(birthday_string, "%Y %m %d") #converting the birtday string into datetime format
 
         #Once information obtained, to create new profile, using the User Class
         new_profile_user = User ( StudentID = StudentID, Firstname = Firstname, Lastname = Lastname, Username = Username, Password = Password, Course = Course, Email = Email, GraduationYear = GraduationYear, Birthday = Birthday)
@@ -81,7 +81,7 @@ def sign_up():
 
 @app.route("/login-page", methods=["GET", "POST"])
 def login_page():
-    if request.method == "POST"
+    if request.method == "POST":
         Username =  request.form.get("username")
         Password = request.form.get("password") 
     
@@ -89,7 +89,7 @@ def login_page():
         check_username = User.query.filter_by(Username=Username).first() #checks User db if this username exists
         check_password = User.query.filter_by(Password=Password).first() ##checks User db if this password exists
 
-        if Username == check_username and Password = check_password:
+        if Username == check_username and Password == check_password:
             return redirect(url_for("view_profile")) #or maybe homepage?
         else:
             render_template("loginpage.html", error= "Invalid Username or Password, please try again")

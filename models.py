@@ -8,8 +8,8 @@ from typing import Optional
 class User(db.Model):
     __tablename__ = 'User'
     StudentID: so.Mapped[int] =so.mapped_column(primary_key=True)
-    Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    #Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    #Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Username: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Password: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Course: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
