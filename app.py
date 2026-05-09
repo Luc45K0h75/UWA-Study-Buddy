@@ -14,10 +14,10 @@ app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
 
-# Converts date from datetime (which is what it is stored as) to an actual string date
+# When Syifa and I create our dates, they were stored as differe
 @app.template_filter('dateconverter')
 def format_datetime(value):
-    return datetime.fromtimestamp(value).strftime('%d %b %Y %I:%M %p')
+    return datetime.fromtimestamp(int(value)).strftime('%d %b %Y %I:%M %p')
 
 # Blueprints for different pages of the website
 app.register_blueprint(index_blueprint)

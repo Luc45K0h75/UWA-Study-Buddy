@@ -19,6 +19,7 @@
     
     {% include 'navbar.html' %}
 
+
     <!-- Filter Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
         <h5 class="display-5 text-center">Discover Groups</h5>
@@ -71,6 +72,7 @@
         <!-- Row for displaying groups -->
         <div class="row">
             {% if groups %}
+                <!-- Card displayed for every grouo that fits the filters-->
                 {% for group in groups %}
                     <div class="col-md-4">
                         <div class="card card-style h-100">
@@ -78,8 +80,16 @@
                                 <h5 class="text-center" style="color: purple;">{{ group['GroupName'] }}</h5>
                                 <p class="text-start">Description: {{ group['Description'] }}</p>
                             </div>
+                            <div class="card-footer text-center">
+                                <!-- Form to join the group, sends a POST request -->
+                                <form method="POST" action="{{ url_for('view_groups.join_group') }}">
+                                    <input type="hidden" name="group_id" value="{{ group['GroupID'] }}">
+                                    <button type="submit" class="btn btn-primary mt-2">Join Group</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                
                 {% endfor %}
             {% else %}
                 <h5 class="text-start"> No groups found</h5>

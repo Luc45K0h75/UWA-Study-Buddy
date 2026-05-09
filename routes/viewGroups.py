@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request # Our group chose to use blueprints because we could keep the python for each page separate allowing us to avoide merge conflicts
+from flask import Blueprint, render_template, request, flash, url_for, redirect  # Our group chose to use blueprints because we could keep the python for each page separate allowing us to avoide merge conflicts
 from extensions import db
 from datetime import datetime # For use in the query
-from models import Groups, Unit, GroupType, Faculty
+from models import Groups, Unit, GroupType, Faculty, StudentGroups
 import sqlalchemy as sa
 
 
@@ -33,6 +33,14 @@ def view_groups():
     unit = request.args.get('unit')
     group_type = request.args.get('group_type')
 
+    # Ignore default "Select..." options
+    if faculty and not faculty.isdigit():
+        faculty = None
+    if unit and not unit.isdigit():
+        unit = None
+    if group_type and not group_type.isdigit():
+        group_type = None
+
     query = sa.select(Groups.GroupID, Groups.GroupName, Groups.Description).join(Unit, Groups.UnitID == Unit.UnitID)
 
     # Apply filters to the query based on user selection
@@ -54,6 +62,28 @@ def view_groups():
         groupTypes=groupTypes,
         groups=groups
     )
+
+# Join group button logic
+@view_groups_blueprint.route('/join-group', methods=['POST'])
+def join_group():
+    student_id = 12345678
+    group_id = request.form.get('group_id') # Get the group id of the requested group from the form
+
+    # Filter check if the student is already in the group
+    existing_membership = db.session.execute(
+        sa.select(StudentGroups)
+        .where(StudentGroups.StudentID == student_id, StudentGroups.GroupID == group_id)
+    ).first()
+
+    if existing_membership: 
+        flash("You have already joined this group!")
+        return redirect(url_for('view_groups.view_groups'))
+
+    added_student = StudentGroups(StudentID=student_id, GroupID=group_id, RoleID=2) # Added as a member by default (role id = 2)
+    db.session.add(added_student)
+    db.session.commit() 
+    flash("You have successfully joined the group!")
+    return redirect(url_for('view_groups.view_groups'))
 
     
 
