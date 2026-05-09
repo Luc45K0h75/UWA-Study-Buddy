@@ -112,3 +112,14 @@
     width: 25%;
     border-radius: 5px;
 }
+
+.card-style {
+    background-color: white;
+    border: 2px solid purple;
+    border-radius: 5px;
+    color: black
+}
+
+.card-padding {
+    padding: 15px;
+}
