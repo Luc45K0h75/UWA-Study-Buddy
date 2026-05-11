@@ -4,7 +4,7 @@ from models import Unit, Groups, Session
 
 # Receives the create group form data from routes/create_group.py
 # Inserts the data into the Unit, Groups, and Session tables
-def create_group_in_db(unit_code, unit_name, topic, description, materials, date, time, location, members):
+def create_group_in_db(unit_code, unit_name, faculty_id, topic, description, materials, date, time, location, members):
     
     # Check if the unit already exists in the database. If not, create a new unit entry so we don't store duplicates
     unit = Unit.query.filter_by(UnitCode=unit_code).first()
@@ -12,7 +12,7 @@ def create_group_in_db(unit_code, unit_name, topic, description, materials, date
         unit = Unit(
             UnitCode=unit_code,
             UnitName=unit_name,
-            # FacultyID
+            FacultyID=faculty_id
         )
         db.session.add(unit)
         db.session.flush()  # Flush so we can access the new UnitID before committing
@@ -40,11 +40,14 @@ def create_group_in_db(unit_code, unit_name, topic, description, materials, date
             # If only date is given, default time to midnight
             session_datetime = datetime.strptime(date, "%Y-%m-%d")
 
+        # Store as UNIX timestamp (integer)
+        unix_timestamp = int(session_datetime.timestamp())
+
         new_session = Session(
             GroupID=new_group.GroupID,
             SessionTypeID=1,                # Default SessionTypeID for now
             Description=materials or "",    # Use materials as the session description
-            SessionDateTime=session_datetime,
+            SessionDateTime=unix_timestamp,
             Location=location or ""         # Use empty string if no location given
         )
         db.session.add(new_session)
