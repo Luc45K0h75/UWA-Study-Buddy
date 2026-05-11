@@ -4,6 +4,7 @@ from config import Config # For the configuration of the app
 from routes.index import index_blueprint # For the index file
 from routes.viewGroups import view_groups_blueprint # For the view groups file
 from routes.create_group import create_group_blueprint # For the create group file
+from routes.myGroups import my_groups_blueprint # For the my groups file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 from models import User #importing the user class from models.py
@@ -23,10 +24,7 @@ def format_datetime(value):
 app.register_blueprint(index_blueprint)
 app.register_blueprint(view_groups_blueprint)
 app.register_blueprint(create_group_blueprint)
-
-@app.route("/my-groups")
-def my_groups():
-    return render_template("myGroups.html")
+app.register_blueprint(my_groups_blueprint)
 
 
 @app.route("/sign-up", methods=["GET", "POST"])

@@ -16,4 +16,28 @@
     <!-- Navbar - Uses a custom gradient-->
     {% include 'navbar.html' %}
 
+    <div class="container-fluid p-5 my-5 bg-container container-text opacity-75">
+        <h1 class="display-1 text-center">My Groups</h1>
+        <table class="table table-striped table-hover">
+            <!-- Table headers-->
+            <thead>
+                <tr>
+                    <th>Group Name</th>
+                    <th>Description</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+
+            <!-- Displays groups -->
+            <tbody>
+                {% for g in groups %}
+                <tr>
+                    <td>{{ g.GroupName }}</td>
+                    <td>{{ g.Description }}</td>
+                    <td>{{ g.Role }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
