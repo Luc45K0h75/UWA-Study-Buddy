@@ -1,12 +1,6 @@
-# Configution file
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import datetime
 from extensions import db
 from models import Unit, Groups, Session
-
-class Config:
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'StudyBuddy.db') 
 
 # Receives the create group form data from routes/create_group.py
 # Inserts the data into the Unit, Groups, and Session tables

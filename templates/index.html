@@ -1,6 +1,7 @@
 <!--This is where the homepage is-->
 
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
@@ -16,38 +17,8 @@
 
 <!-- Navbar -->
 <body class="bg-light bg-gradient">
-    <!-- Navbar - Uses a custom gradient-->
-    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
-        <div class="container-fluid">
-            <!-- UWA Study Budy Logo-->
-            <a class="navbar-brand" href="#">UWA Study Buddy</a>
-            <!-- List of elements on the navbar -->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <!-- Put you links in double quotes after href-->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('create_group.create_group') }}">Create a Group</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('view_groups.view_groups') }}">View Groups</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Login button -->
-         {% if username %}
-         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">View Profile</button>
-        {% else %}
-         <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
-         {% endif %}
-    </nav>
+    <!-- Jinja to include the navbar -->
+    {% include 'navbar.html' %}
 
     <!-- Welcome Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
@@ -96,9 +67,9 @@
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
-                <h5 class="text-center">Notifications</h5>
+
                 <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'">See notifications</button>  
+                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>See notifications</button>  
                 </div>
             </div>
         </div>
@@ -130,7 +101,7 @@
         <div class="row">
             {% for u in upcoming_events %}
             <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Date: {{ u['Date'] | dateconverter }}</h5>
+                <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
                 <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
                 <h5 class="text-start">Location: {{ u['Location'] }}</h5>
                 <h5 class="text-start">Description: {{ u['Description'] }}</h5>
@@ -175,4 +146,8 @@
         {% endif %}
     </div>
 
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
+</html>

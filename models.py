@@ -8,14 +8,14 @@ from typing import Optional
 class User(db.Model):
     __tablename__ = 'User'
     StudentID: so.Mapped[int] =so.mapped_column(primary_key=True)
-    Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    #Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    #Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Username: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Password: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Course: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Email: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     GraduationYear: so.Mapped[int] = so.mapped_column(nullable=False)
-    Birthday: so.Mapped[datetime] = so.mapped_column(nullable=False)
+    Birthday: so.Mapped[int] = so.mapped_column(nullable=False)
 
 class Faculty(db.Model):
     __tablename__ = 'Faculty'
@@ -63,7 +63,7 @@ class StudentGroups(db.Model):
 class Session(db.Model):
     __tablename__ = 'Session'
     SessionID: so.Mapped[int] = so.mapped_column(primary_key=True)
-    SessionDateTime: so.Mapped[datetime] = so.mapped_column(nullable=False)
+    SessionDateTime: so.Mapped[int] = so.mapped_column(nullable=False)
     Description: so.Mapped[str] = so.mapped_column(sa.String(200), nullable=False)
     GroupID: so.Mapped[int] = so.mapped_column(sa.ForeignKey('Groups.GroupID'), nullable=False)
     SessionTypeID: so.Mapped[int] = so.mapped_column(sa.ForeignKey('SessionType.SessionTypeID'), nullable=False)

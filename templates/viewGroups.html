@@ -1,4 +1,4 @@
-<!--This is where the homepage is-->
+<!--This is where the view groups page is-->
 
 <!doctype html>
 <head>
@@ -16,69 +16,85 @@
 
 <!-- Navbar -->
 <body class="bg-light bg-gradient">
-    <!-- Navbar - Uses a custom gradient-->
-    <nav class="navbar navbar-expand-sm bg-navbar navbar-dark">
-        <div class="container-fluid">
-            <!-- UWA Study Budy Logo-->
-            <a class="navbar-brand" href="#">UWA Study Buddy</a>
-            <!-- List of elements on the navbar -->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <!-- Put you links in double quotes after href-->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('create_group') }}">Create a Group</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('my_groups') }}">My Groups</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('view_groups.view_groups') }}">View Groups</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    
+    {% include 'navbar.html' %}
 
-        <!-- Login button -->
-         <button class="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
-    </nav>
 
     <!-- Filter Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
         <h5 class="display-5 text-center">Discover Groups</h5>
-        <form method="GET" action="{{ url_for('view_groups.view_groups') }}"></form>
+        <form method="GET" action="{{ url_for('view_groups.view_groups') }}">
         <div class="row">
             <!-- Filter by Course -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Faculty:</h5>
-                <select class="form-select">
+                <select name="faculty" class="form-select">
                     <option selected>Select Faculty</option>
+                    {% for f in faculties %}
+                        <option value="{{ f['FacultyID'] }}">{{ f['Name'] }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
             <!-- Filter by Day -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Unit:</h5>
-                <select class="form-select">
+                <select name="unit" class="form-select">
                     <option selected>Select the Unit</option>
+                    {% for u in units %}
+                        <option value="{{ u['UnitID'] }}">{{ u['UnitName'] }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
             <!-- Filter by Time -->
             <div class = "col-sm-4 searchbar-secondary-colours searchbar-borders-padding">
                 <h5 class="text-start">Filter by Group Type:</h5>
-                <select class="form-select">
+                <select name="group_type" class="form-select">
                     <option selected>Select a Group Type</option>
+                    {% for g in groupTypes %}
+                        <option value="{{ g['GroupTypeID'] }}">{{ g['Type'] }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
         </div>
-        </form>
+
         <div class="row mt-2">
             <div class="col text-center ">
-                <button type="button" class="btn searchbar-searchbutton">Search</button>  
+                <button type="submit" class="btn searchbar-searchbutton">Search</button>  
             </div>
+        </div>
+        </form>
+    </div>
+
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <!-- Row for displaying groups -->
+        <div class="row">
+            {% if groups %}
+                <!-- Card displayed for every grouo that fits the filters-->
+                {% for group in groups %}
+                    <div class="col-md-4">
+                        <div class="card card-style h-100">
+                            <div class="card-body">
+                                <h5 class="text-center" style="color: purple;">{{ group['GroupName'] }}</h5>
+                                <p class="text-start">Description: {{ group['Description'] }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <!-- Form to join the group, sends a POST request -->
+                                <form method="POST" action="{{ url_for('view_groups.join_group') }}">
+                                    <input type="hidden" name="group_id" value="{{ group['GroupID'] }}">
+                                    <button type="submit" class="btn btn-primary mt-2">Join Group</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                
+                {% endfor %}
+            {% else %}
+                <h5 class="text-start"> No groups found</h5>
+            {% endif %}
+
+        </div>
     </div>
 </body>
