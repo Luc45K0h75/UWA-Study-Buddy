@@ -5,6 +5,7 @@ from routes.index import index_blueprint # For the index file
 from routes.viewGroups import view_groups_blueprint # For the view groups file
 from routes.create_group import create_group_blueprint # For the create group file
 from routes.addSession import add_session_blueprint # For the add session file
+from routes.myGroups import my_groups_blueprint # For the my groups file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 from models import User #importing the user class from models.py
@@ -25,10 +26,6 @@ app.register_blueprint(index_blueprint)
 app.register_blueprint(view_groups_blueprint)
 app.register_blueprint(create_group_blueprint)
 app.register_blueprint(add_session_blueprint)
-
-@app.route("/my-groups")
-def my_groups():
-    return render_template("myGroups.html")
 
 
 @app.route("/sign-up", methods=["GET", "POST"])
