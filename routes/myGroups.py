@@ -13,7 +13,10 @@ def my_groups():
     student_id = 12345678
 
     # Query to get groups the student has joined
-    query = sa.select(StudentGroups.StudentID, Groups.GroupName, Groups.Description, Role.Type).join(Groups, StudentGroups.GroupID == Groups.GroupID).join(Role, StudentGroups.RoleID == Role.RoleID).where(StudentGroups.StudentID == student_id)
-    groups = db.session.execute(query).mappings().all()
-
-    return render_template('myGroups.html', groups=groups)
+    query = sa.select(StudentGroups.StudentID, StudentGroups.GroupID,Groups.GroupName, Groups.Description, Role.Type).join(Groups, StudentGroups.GroupID == Groups.GroupID).join(Role, StudentGroups.RoleID == Role.RoleID).where(StudentGroups.StudentID == student_id)
+    studentGroups = db.session.execute(query).mappings().all()
+    print(f"Found {len(studentGroups)} groups")
+    for sg in studentGroups:
+        print(dict(sg))
+    return render_template('myGroups.html', studentGroups=studentGroups)
+    

@@ -30,11 +30,11 @@
 
             <!-- Displays groups -->
             <tbody>
-                {% for g in groups %}
+                {% for sg in studentGroups %}
                 <tr>
-                    <td>{{ g.GroupName }}</td>
-                    <td>{{ g.Description }}</td>
-                    <td>{{ g.Role }}</td>
+                    <td>{{ sg['GroupName'] }}</td>
+                    <td>{{ sg['Description'] }}</td>
+                    <td>{{ sg['Type'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
