@@ -4,6 +4,7 @@ from config import Config # For the configuration of the app
 from routes.index import index_blueprint # For the index file
 from routes.viewGroups import view_groups_blueprint # For the view groups file
 from routes.create_group import create_group_blueprint # For the create group file
+from routes.addSession import add_session_blueprint # For the add session file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 from models import User #importing the user class from models.py
@@ -14,7 +15,7 @@ app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
 
-# When Syifa and I create our dates, they were stored as differe
+# When Syifa and I create our dates, they were stored as different data types
 @app.template_filter('dateconverter')
 def format_datetime(value):
     return datetime.fromtimestamp(int(value)).strftime('%d %b %Y %I:%M %p')
@@ -23,6 +24,7 @@ def format_datetime(value):
 app.register_blueprint(index_blueprint)
 app.register_blueprint(view_groups_blueprint)
 app.register_blueprint(create_group_blueprint)
+app.register_blueprint(add_session_blueprint)
 
 @app.route("/my-groups")
 def my_groups():
