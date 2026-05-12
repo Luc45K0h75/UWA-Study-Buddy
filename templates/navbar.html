@@ -28,7 +28,9 @@
 
         <!-- Login button -->
          {% if username %}
-         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">View Profile</button>
+         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">
+            <i class="bi bi-person-circle fs-5"></i>
+         </button>
         {% else %}
          <button class="login-button" onclick="window.location.href='{{ url_for('login_page') }}'">Login</button>
          {% endif %}

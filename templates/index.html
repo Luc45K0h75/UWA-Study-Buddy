@@ -36,6 +36,9 @@
         <!-- Features -->
         <div class = "row">
             <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-search fs-1"></i>
+                </div>
                 <h5 class="text-center">Discover Study Groups</h5>
                 <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
                 <div class="text-center">
@@ -48,6 +51,9 @@
             
             <!-- View My Groups -->
             <div class = "col-sm-3 col-bg-secondary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-people-fill fs-1"></i>
+                </div>
                 <h5 class="text-center">View my Groups</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success"
@@ -59,6 +65,9 @@
 
             <!-- Create Study Group -->
             <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-book fs-1"></i>
+                </div>
                 <h5 class="text-center" >Create a Study Group</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group.create_group') }}'">Click here to create!</button>
@@ -67,7 +76,10 @@
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
-
+                <div class="text-center">
+                    <i class="bi bi-bell fs-1"></i>
+                </div>
+                <h5 class="text-center" >View notifications</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>See notifications</button>  
                 </div>
@@ -90,29 +102,25 @@
         {% if upcoming_events %}
         <div class = "row">
             {% for u in upcoming_events %}
-            <div class = "col-sm-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+            <div class = "col-sm-4">
+                <div class = "card card-style card-padding h-100">
+                    <div class="card-header text-center">
+                        <h5 class="card-title" style="color:purple">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+                    </div>
+                    <!-- Implements a box that shows the details of each event-->
+                    <div class="card-body">
+                        <h5 class="card-text">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
+                        <h5 class="card-text">Hosted by: {{ u['GroupName'] }}</h5>
+                        <h5 class="card-text">Location: {{ u['Location'] }}</h5>
+                        <h5 class="card-text">Description: {{ u['Description'] }}</h5>
+                    </div>    
+                </div>
             </div>
             {% endfor %}
-            
-        </div>
-        
-        <!-- Implements a box that shows the details of each event-->
-        <div class="row">
-            {% for u in upcoming_events %}
-            <div class = "col-sm-4 popup-secondary-colours popup-borders-padding">
-                <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
-                <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
-                <h5 class="text-start">Location: {{ u['Location'] }}</h5>
-                <h5 class="text-start">Description: {{ u['Description'] }}</h5>
-            </div>
-            {% endfor %}
-
         </div>
         {% else %}
         <h5 class="text-start">No upcoming events.</h5>
         {% endif %}
-
     </div>
 
     <!-- New Groups-->
@@ -125,21 +133,21 @@
         {% if new_groups %} 
         <div class = "row">
             {% for g in new_groups %}
-            <div class = "col-sm-4 popup-quarternary-colours popup-borders-padding">
-                <h5 class="text-center">{{ g['GroupName'] }}</h5>
+            <div class = "col-sm-4">
+                <div class="card card-style card-padding h-100">
+                    <div class="card-header text-center">
+                        <h5 class="card-title" style="color:purple">{{ g['GroupName'] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="text-start">Group Type: {{ g['GroupType'] }}</h5>
+                        <h5 class="text-start">Unit: {{ g['UnitName'] }}</h5>
+                    <h5 class="text-start">Description: {{ g['Description'] }}</h5>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
         
-        <div class="row">
-            {% for g in new_groups %}
-            <div class = "col-sm-4 popup-tertiary-colours popup-borders-padding">
-                <h5 class="text-start">Group Type: {{ g['GroupType'] }}</h5>
-                <h5 class="text-start">Unit: {{ g['UnitName'] }}</h5>
-                <h5 class="text-start">Description: {{ g['Description'] }}</h5>
-            </div>
-            {% endfor %}
-        </div>
         <!-- If there are no new groups -->
         {% else %}
         <h5 class="text-start">No new groups</h5>
