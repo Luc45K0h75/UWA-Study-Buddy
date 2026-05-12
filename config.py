@@ -3,22 +3,30 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 from datetime import datetime
 from extensions import db
-from models import Unit, Groups, Session
+from models import Unit, Groups, Session, Faculty
 
 class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'StudyBuddy.db') 
 
 # Receives the create group form data from routes/create_group.py
 # Inserts the data into the Unit, Groups, and Session tables
-def create_group_in_db(unit_code, unit_name, topic, description, materials, date, time, location, members):
-    
+def create_group_in_db(unit_code, unit_name, topic, description, materials, date, time, location, members, faculty):
+    # If the faculty doesn't exist, add the faculty
+    faculty = Faculty.query.filter_by(Name=faculty).first()
+    if not faculty:
+        faculty = Faculty(
+            Name=faculty
+        )
+        db.session.add(faculty)
+        db.session.flush()  # Flush so we can access the new FacultyID before committing
+
     # Check if the unit already exists in the database. If not, create a new unit entry so we don't store duplicates
     unit = Unit.query.filter_by(UnitCode=unit_code).first()
     if not unit:
         unit = Unit(
             UnitCode=unit_code,
             UnitName=unit_name,
-            # FacultyID
+            FacultyID=faculty.FacultyID
         )
         db.session.add(unit)
         db.session.flush()  # Flush so we can access the new UnitID before committing
