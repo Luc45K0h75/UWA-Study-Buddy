@@ -26,7 +26,7 @@ app.register_blueprint(index_blueprint)
 app.register_blueprint(view_groups_blueprint)
 app.register_blueprint(create_group_blueprint)
 app.register_blueprint(add_session_blueprint)
-
+app.register_blueprint(my_groups_blueprint)
 
 @app.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
