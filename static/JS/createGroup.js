@@ -4,6 +4,7 @@ function setupCreateGroupForm() {
     const form = document.getElementById('createGroupForm');
     const unitCode = document.getElementById('unitCode');
     const unitName = document.getElementById('unitName');
+    const faculty = document.getElementById('faculty');
     const topic = document.getElementById('topic');
     const members = document.getElementById('members');
     const submitButton = document.getElementById('submitButton');
@@ -25,6 +26,7 @@ function setupCreateGroupForm() {
     form.addEventListener("submit", function (event) {
         const unitCodeValue = unitCode.value.trim();
         const unitNameValue = unitName.value.trim();
+        const facultyValue = faculty.value.trim();
         const topicValue = topic.value.trim();
         const membersValue = Number(members.value);
 
@@ -33,9 +35,9 @@ function setupCreateGroupForm() {
 
         // check that the main required fields are not empty
         // show alert if something is missing and prevent form submission
-        if (unitCodeValue === "" || unitNameValue === "" || topicValue === "" || members.value === "") {
+        if (unitCodeValue === "" || unitNameValue === "" || facultyValue === "" || topicValue === "" || members.value === "") {
             event.preventDefault();
-            alert("Please fill in Unit Code, Unit Name, Study Topic, and Maximum Members.");
+            alert("Please fill in Unit Code, Unit Name, Faculty, Study Topic, and Maximum Members.");
             return;
         }
 

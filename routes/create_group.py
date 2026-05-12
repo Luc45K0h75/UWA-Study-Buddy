@@ -11,6 +11,7 @@ def create_group():
     if request.method == "POST":
         unit_code = request.form.get("unitCode")
         unit_name = request.form.get("unitName")
+        faculty = request.form.get("faculty")
         topic = request.form.get("topic")
         description = request.form.get("description")
         materials = request.form.get("materials")
@@ -20,7 +21,7 @@ def create_group():
         members = request.form.get("members")
 
         # Send data to database.py to handle the actual insert
-        create_group_in_db(unit_code, unit_name, topic, description, materials, date, time, location, members)
+        create_group_in_db(unit_code, unit_name, faculty, topic, description, materials, date, time, location, members)
 
         # After processing the form, redirect back to the create group page
         return redirect(url_for("create_group.create_group"))

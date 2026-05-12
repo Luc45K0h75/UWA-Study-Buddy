@@ -36,6 +36,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="faculty" name="faculty" placeholder="Example: Computer Science or Engineering" required>
+                </div>
+
+                <div class="mb-3">
                     <label for="unitName" class="form-label">Unit Name</label>
                     <input type="text" class="form-control" id="unitName" name="unitName" placeholder="Example: Agile Web Development" required>
                 </div>
@@ -56,12 +61,17 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date">
+                    </div>
+ 
+                    <div class="col-md-4 mb-3">
                         <label for="time" class="form-label">Time</label>
-                        <input type="text" class="form-control" id="time" name="time" placeholder="Example: Tuesday 2 PM or TBD" >
+                        <input type="time" class="form-control" id="time" name="time">
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or TBD">
                     </div>
