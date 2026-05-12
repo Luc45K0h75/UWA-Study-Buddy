@@ -36,6 +36,9 @@
         <!-- Features -->
         <div class = "row">
             <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-search fs-1"></i>
+                </div>
                 <h5 class="text-center">Discover Study Groups</h5>
                 <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
                 <div class="text-center">
@@ -48,6 +51,9 @@
             
             <!-- View My Groups -->
             <div class = "col-sm-3 col-bg-secondary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-people-fill fs-1"></i>
+                </div>
                 <h5 class="text-center">View my Groups</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success"
@@ -59,6 +65,9 @@
 
             <!-- Create Study Group -->
             <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
+                <div class="text-center">
+                    <i class="bi bi-book fs-1"></i>
+                </div>
                 <h5 class="text-center" >Create a Study Group</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group.create_group') }}'">Click here to create!</button>
@@ -67,7 +76,10 @@
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
-
+                <div class="text-center">
+                    <i class="bi bi-bell fs-1"></i>
+                </div>
+                <h5 class="text-center" >View notifications</h5>
                 <div class="text-center">
                     <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>See notifications</button>  
                 </div>

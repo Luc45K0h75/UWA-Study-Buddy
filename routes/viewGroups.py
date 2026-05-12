@@ -79,7 +79,7 @@ def join_group():
         flash("You have already joined this group!")
         return redirect(url_for('view_groups.view_groups'))
 
-    added_student = StudentGroups(StudentID=student_id, GroupID=group_id, RoleID=2) # Added as a member by default (role id = 2)
+    added_student = StudentGroups(StudentID=student_id, GroupID=group_id, RoleID=1) # Added as a member by default (role id = 1)
     db.session.add(added_student)
     db.session.commit() 
     flash("You have successfully joined the group!")
