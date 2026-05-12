@@ -87,37 +87,37 @@
 
     <!-- Upcoming Events (shows your 3 closest upcoming events) -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
-        <!-- Intro -->
         <div class="row">
             <div class="col">
                 <h1 class="display-5">My Upcoming Events</h1>
-                <p class="lead">See your upcoming events here!</p>
+                <p class="lead">See your upcoming study sessions here.</p>
             </div>
         </div>
 
-        <!-- Event names-->
-        <!-- Use Jinja to find 3 closest upcoming events-->
         {% if upcoming_events %}
-        <div class = "row">
+        <div class="row g-3">
             {% for u in upcoming_events %}
-            <div class = "col-sm-4">
-                <div class = "card card-style card-padding h-100">
-                    <div class="card-header text-center">
-                        <h5 class="card-title" style="color:purple">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <div class="card-header popup-colours popup-borders-padding">
+                        <h5 class="card-title mb-0">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
                     </div>
-                    <!-- Implements a box that shows the details of each event-->
-                    <div class="card-body">
-                        <h5 class="card-text">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
-                        <h5 class="card-text">Hosted by: {{ u['GroupName'] }}</h5>
-                        <h5 class="card-text">Location: {{ u['Location'] }}</h5>
-                        <h5 class="card-text">Description: {{ u['Description'] }}</h5>
-                    </div>    
+                    <div class="card-body popup-secondary-colours popup-borders-padding">
+                        <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
+                        <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
+                        <h5 class="text-start">Location: {{ u['Location'] }}</h5>
+                        <h5 class="text-start">Description: {{ u['Description'] }}</h5>
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <h5 class="text-start">No upcoming events.</h5>
+        <div class="row">
+            <div class="col popup-secondary-colours popup-borders-padding">
+                <h5 class="mb-0">No upcoming events.</h5>
+            </div>
+        </div>
         {% endif %}
     </div>
 
