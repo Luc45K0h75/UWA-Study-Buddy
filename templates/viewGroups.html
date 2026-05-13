@@ -92,12 +92,13 @@
                 <!-- Card displayed for every group that fits the filters -->
                 {% for group in groups %}
                     <div class="col-md-4">
-                        <div class="card card-style h-100">
+                        <div class="card card-style card-padding h-100">
                             <div class="card-body">
-                                <h5 class="text-center" style="color: purple;">{{ group['GroupName'] }}</h5>
-                                <p class="text-start">Description: {{ group['Description'] }}</p>
+                                <h5 class="card-title text-center" style="color: purple;">{{ group['GroupName'] }}</h5>
+                                <p class="card-text text-start">Description: {{ group['Description'] }}</p>
                             </div>
-                            <div class="card-footer text-center">
+
+                            <div class="card-footer bg-transparent text-center">
                                 <!-- Form to join the group, sends a POST request -->
                                 <form method="POST" action="{{ url_for('view_groups.join_group') }}">
                                     <input type="hidden" name="group_id" value="{{ group['GroupID'] }}">
@@ -106,12 +107,17 @@
                             </div>
                         </div>
                     </div>
-                
                 {% endfor %}
             {% else %}
-                <h5 class="text-start"> No groups found</h5>
+                <div class="col">
+                    <div class="card-style card-padding">
+                        <h5 class="mb-0">No groups found.</h5>
+                    </div>
+                </div>
             {% endif %}
-
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
