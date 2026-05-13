@@ -1,11 +1,12 @@
-<!--This is where the homepage is-->
+<!--This is where the create group page is-->
 
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
@@ -14,13 +15,9 @@
 
     <!--Imports the JavaScript file for form validation-->
     <script src="{{ url_for('static', filename='JS/createGroup.js') }}"></script>
-
 </head>
 
-<!-- Navbar -->
 <body class="bg-light bg-gradient">
-    <!-- Navbar - Uses a custom gradient-->
-
     {% include 'navbar.html' %}
 
     <!-- Main Content-->
