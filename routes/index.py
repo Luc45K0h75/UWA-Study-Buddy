@@ -4,6 +4,7 @@ from datetime import datetime # For use in the query
 from models import User, Session, Groups, SessionType, Unit, StudentGroups, GroupType
 from extensions import db
 import sqlalchemy as sa
+from flask_login import login_required, current_user #using the flask-login extension to maintain user login-session
 
 # Creates the blueprint to handle index.html
 index_blueprint = Blueprint('index', __name__)
@@ -11,9 +12,10 @@ index_blueprint = Blueprint('index', __name__)
 #Paths to the page in the url browser
 @index_blueprint.route('/')
 @index_blueprint.route('/index')
+@login_required #ensuring user is logged in before they access this page
 
 def index():
-    student_id = 12345678 # Dummy to be changed later
+    current_user.StudentID #removed placeholder. This now contains student id of the logged in user
 
     # Get username
     user = db.session.get(User, student_id)
