@@ -34,7 +34,7 @@
         <!-- Features -->
         <div class="row g-3">
             <div class="col-sm-3">
-                <div class="col-bg-primary col-border welcome-buttoms h-100 p-3 text-center">
+                <div class="card-style card-padding h-100 text-center">
                     <i class="bi bi-search fs-1"></i>
                     <h5>Discover Study Groups</h5>
                     <p>Browse available study groups and find one that suits your unit.</p>
@@ -47,7 +47,7 @@
 
             <!-- View My Groups -->
             <div class="col-sm-3">
-                <div class="col-bg-secondary col-border welcome-buttoms h-100 p-3 text-center">
+                <div class="card-style card-padding h-100 text-center">
                     <i class="bi bi-people-fill fs-1"></i>
                     <h5>View My Groups</h5>
                     <p>See the study groups you are already part of.</p>
@@ -60,7 +60,7 @@
 
             <!-- Create Study Group -->
             <div class="col-sm-3">
-                <div class="col-bg-tertiary col-border welcome-buttoms h-100 p-3 text-center">
+                <div class="card-style card-padding h-100 text-center">
                     <i class="bi bi-book fs-1"></i>
                     <h5>Create a Study Group</h5>
                     <p>Start a new group for a unit, topic or upcoming assessment.</p>
@@ -73,7 +73,7 @@
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class="col-sm-3">
-                <div class="col-bg-quarternary col-border welcome-buttoms h-100 p-3 text-center">
+                <div class="card-style card-padding h-100 text-center">
                     <i class="bi bi-bell fs-1"></i>
                     <h5>View Notifications</h5>
                     <p>Notifications will appear here once this feature is added.</p>
@@ -98,15 +98,13 @@
         <div class="row g-3">
             {% for u in upcoming_events %}
             <div class="col-sm-4">
-                <div class="card h-100">
-                    <div class="card-header popup-colours popup-borders-padding">
-                        <h5 class="card-title mb-0">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
-                    </div>
-                    <div class="card-body popup-secondary-colours popup-borders-padding">
-                        <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
-                        <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
-                        <h5 class="text-start">Location: {{ u['Location'] }}</h5>
-                        <h5 class="text-start">Description: {{ u['Description'] }}</h5>
+                <div class="card card-style card-padding h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" style="color: purple;">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+                        <h5 class="card-text text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
+                        <h5 class="card-text text-start">Hosted by: {{ u['GroupName'] }}</h5>
+                        <h5 class="card-text text-start">Location: {{ u['Location'] }}</h5>
+                        <h5 class="card-text text-start">Description: {{ u['Description'] }}</h5>
                     </div>
                 </div>
             </div>
@@ -114,8 +112,10 @@
         </div>
         {% else %}
         <div class="row">
-            <div class="col popup-secondary-colours popup-borders-padding">
-                <h5 class="mb-0">No upcoming events.</h5>
+            <div class="col">
+                <div class="card-style card-padding">
+                    <h5 class="mb-0">No upcoming events.</h5>
+                </div>
             </div>
         </div>
         {% endif %}
@@ -134,14 +134,12 @@
         <div class="row g-3">
             {% for g in new_groups %}
             <div class="col-sm-4">
-                <div class="card h-100">
-                    <div class="card-header popup-quarternary-colours popup-borders-padding">
-                        <h5 class="card-title mb-0">{{ g['GroupName'] }}</h5>
-                    </div>
-                    <div class="card-body popup-tertiary-colours popup-borders-padding">
-                        <h5 class="text-start">Group Type: {{ g['GroupType'] }}</h5>
-                        <h5 class="text-start">Unit: {{ g['UnitName'] }}</h5>
-                        <h5 class="text-start">Description: {{ g['Description'] }}</h5>
+                <div class="card card-style card-padding h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" style="color: purple;">{{ g['GroupName'] }}</h5>
+                        <h5 class="card-text text-start">Group Type: {{ g['GroupType'] }}</h5>
+                        <h5 class="card-text text-start">Unit: {{ g['UnitName'] }}</h5>
+                        <h5 class="card-text text-start">Description: {{ g['Description'] }}</h5>
                     </div>
                 </div>
             </div>
@@ -149,8 +147,10 @@
         </div>
         {% else %}
         <div class="row">
-            <div class="col popup-tertiary-colours popup-borders-padding">
-                <h5 class="mb-0">No new groups.</h5>
+            <div class="col">
+                <div class="card-style card-padding">
+                    <h5 class="mb-0">No new groups.</h5>
+                </div>
             </div>
         </div>
         {% endif %}
