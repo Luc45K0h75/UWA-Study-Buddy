@@ -6,82 +6,80 @@
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!--Imports Lucas's CSS file that overlays bootstrap-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
-<!-- Navbar -->
 <body class="bg-light bg-gradient">
     <!-- Jinja to include the navbar -->
     {% include 'navbar.html' %}
 
     <!-- Welcome Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
-        <div class = "row">
-            <div class = "col">
+        <div class="row">
+            <div class="col text-center">
                 {% if username %}
-                <h3 class="display-3 text-center">Welcome back, {{username}}!</h3>
+                <h3 class="display-3">Welcome back, {{ username }}!</h3>
                 {% else %}
-                <h3 class="display-3 text-center">Welcome!</h3>
+                <h3 class="display-3">Welcome!</h3>
                 {% endif %}
-                <!-- Subheading-->
-                <h5 class="card-subtitle text-center pb-3">Select one of the options below to get started!</h5>
+                <h5 class="card-subtitle pb-3">Select one of the options below to get started!</h5>
             </div>
         </div>
+
         <!-- Features -->
-        <div class = "row">
-            <div class = "col-sm-3 col-bg-primary col-border welcome-buttoms">
-                <div class="text-center">
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <div class="col-bg-primary col-border welcome-buttoms h-100 p-3 text-center">
                     <i class="bi bi-search fs-1"></i>
-                </div>
-                <h5 class="text-center">Discover Study Groups</h5>
-                <!-- Class centers the button, there is Javascript in the button to link it to the page  -->
-                <div class="text-center">
+                    <h5>Discover Study Groups</h5>
+                    <p>Browse available study groups and find one that suits your unit.</p>
                     <button type="button" class="btn btn-success"
                         onclick="window.location.href='{{ url_for('view_groups.view_groups') }}'">
-                        Click here to view!
+                        View groups
                     </button>
                 </div>
             </div>
-            
+
             <!-- View My Groups -->
-            <div class = "col-sm-3 col-bg-secondary col-border welcome-buttoms">
-                <div class="text-center">
+            <div class="col-sm-3">
+                <div class="col-bg-secondary col-border welcome-buttoms h-100 p-3 text-center">
                     <i class="bi bi-people-fill fs-1"></i>
-                </div>
-                <h5 class="text-center">View my Groups</h5>
-                <div class="text-center">
+                    <h5>View My Groups</h5>
+                    <p>See the study groups you are already part of.</p>
                     <button type="button" class="btn btn-success"
                         onclick="window.location.href='{{ url_for('my_groups.my_groups') }}'">
-                        Click here to view!
+                        My groups
                     </button>
                 </div>
             </div>
 
             <!-- Create Study Group -->
-            <div class = "col-sm-3 col-bg-tertiary col-border welcome-buttoms">
-                <div class="text-center">
+            <div class="col-sm-3">
+                <div class="col-bg-tertiary col-border welcome-buttoms h-100 p-3 text-center">
                     <i class="bi bi-book fs-1"></i>
-                </div>
-                <h5 class="text-center" >Create a Study Group</h5>
-                <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for('create_group.create_group') }}'">Click here to create!</button>
+                    <h5>Create a Study Group</h5>
+                    <p>Start a new group for a unit, topic or upcoming assessment.</p>
+                    <button type="button" class="btn btn-success"
+                        onclick="window.location.href='{{ url_for('create_group.create_group') }}'">
+                        Create group
+                    </button>
                 </div>
             </div>
 
             <!-- This will be changed later as notifications will be a pop-up -->
-            <div class = "col-sm-3 col-bg-quarternary col-border welcome-buttoms">
-                <div class="text-center">
+            <div class="col-sm-3">
+                <div class="col-bg-quarternary col-border welcome-buttoms h-100 p-3 text-center">
                     <i class="bi bi-bell fs-1"></i>
-                </div>
-                <h5 class="text-center" >View notifications</h5>
-                <div class="text-center">
-                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>See notifications</button>  
+                    <h5>View Notifications</h5>
+                    <p>Notifications will appear here once this feature is added.</p>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>
+                        Coming soon
+                    </button>
                 </div>
             </div>
         </div>
@@ -89,73 +87,75 @@
 
     <!-- Upcoming Events (shows your 3 closest upcoming events) -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
-        <!-- Intro -->
         <div class="row">
             <div class="col">
                 <h1 class="display-5">My Upcoming Events</h1>
-                <p class="lead">See your upcoming events here!</p>
+                <p class="lead">See your upcoming study sessions here.</p>
             </div>
         </div>
 
-        <!-- Event names-->
-        <!-- Use Jinja to find 3 closest upcoming events-->
         {% if upcoming_events %}
-        <div class = "row">
+        <div class="row g-3">
             {% for u in upcoming_events %}
-            <div class = "col-sm-4">
-                <div class = "card card-style card-padding h-100">
-                    <div class="card-header text-center">
-                        <h5 class="card-title" style="color:purple">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <div class="card-header popup-colours popup-borders-padding">
+                        <h5 class="card-title mb-0">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
                     </div>
-                    <!-- Implements a box that shows the details of each event-->
-                    <div class="card-body">
-                        <h5 class="card-text">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
-                        <h5 class="card-text">Hosted by: {{ u['GroupName'] }}</h5>
-                        <h5 class="card-text">Location: {{ u['Location'] }}</h5>
-                        <h5 class="card-text">Description: {{ u['Description'] }}</h5>
-                    </div>    
+                    <div class="card-body popup-secondary-colours popup-borders-padding">
+                        <h5 class="text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
+                        <h5 class="text-start">Hosted by: {{ u['GroupName'] }}</h5>
+                        <h5 class="text-start">Location: {{ u['Location'] }}</h5>
+                        <h5 class="text-start">Description: {{ u['Description'] }}</h5>
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <h5 class="text-start">No upcoming events.</h5>
+        <div class="row">
+            <div class="col popup-secondary-colours popup-borders-padding">
+                <h5 class="mb-0">No upcoming events.</h5>
+            </div>
+        </div>
         {% endif %}
     </div>
 
     <!-- New Groups-->
     <div class="container-fluid p-5 my-5 bg-container container-text">
-        <h1 class="display-5">New Groups</h1>
-        <p class="lead">Take a look at some of the latest study groups that have been created!</p>
-         <!-- Event names-->
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">New Groups</h1>
+                <p class="lead">Take a look at some of the latest study groups that have been created!</p>
+            </div>
+        </div>
 
-         <!-- Uses Jinja to find 3 newest groups -->
-        {% if new_groups %} 
-        <div class = "row">
+        {% if new_groups %}
+        <div class="row g-3">
             {% for g in new_groups %}
-            <div class = "col-sm-4">
-                <div class="card card-style card-padding h-100">
-                    <div class="card-header text-center">
-                        <h5 class="card-title" style="color:purple">{{ g['GroupName'] }}</h5>
+            <div class="col-sm-4">
+                <div class="card h-100">
+                    <div class="card-header popup-quarternary-colours popup-borders-padding">
+                        <h5 class="card-title mb-0">{{ g['GroupName'] }}</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body popup-tertiary-colours popup-borders-padding">
                         <h5 class="text-start">Group Type: {{ g['GroupType'] }}</h5>
                         <h5 class="text-start">Unit: {{ g['UnitName'] }}</h5>
-                    <h5 class="text-start">Description: {{ g['Description'] }}</h5>
+                        <h5 class="text-start">Description: {{ g['Description'] }}</h5>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        
-        <!-- If there are no new groups -->
         {% else %}
-        <h5 class="text-start">No new groups</h5>
+        <div class="row">
+            <div class="col popup-tertiary-colours popup-borders-padding">
+                <h5 class="mb-0">No new groups.</h5>
+            </div>
+        </div>
         {% endif %}
     </div>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
