@@ -77,11 +77,19 @@
         </form>
     </div>
 
+    <!-- Groups Container -->
     <div class="container-fluid p-5 my-5 bg-container container-text">
-        <!-- Row for displaying groups -->
         <div class="row">
+            <div class="col">
+                <h2 class="display-6">Available Study Groups</h2>
+                <p class="lead">Browse the groups that match your current filters.</p>
+            </div>
+        </div>
+
+        <!-- Row for displaying groups -->
+        <div class="row g-3">
             {% if groups %}
-                <!-- Card displayed for every grouo that fits the filters-->
+                <!-- Card displayed for every group that fits the filters -->
                 {% for group in groups %}
                     <div class="col-md-4">
                         <div class="card card-style h-100">
