@@ -11,50 +11,47 @@
 </head>
 
 <body class="bg-light bg-gradient">
-
     {% include 'navbar.html' %}
 
- <!-- Creating the login box-->
-    <div class="container my-5">
+    <!-- Login page content -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="display-5">Login</h1>
+                <p class="lead">Welcome back to UWA Study Buddy.</p>
+            </div>
+        </div>
 
-        <div class= "row justify-content-center">
+        <!-- Login box -->
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-6 col-lg-4">
+                <div class="card-style card-padding">
+                    <h5 class="text-center mb-4">Enter your details below</h5>
 
-            <div class= "col-sm-8 col-md-6 col-lg-4">
+                    <form>
+                        <!-- Username -->
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
+                        </div>
 
-                <div class="card mt-5">
-                    <h5 class= "card-header text-center">Login</h5>
-                    <div class ="card-body">
-                        <h5 class="card-title text-center">Welcome Back :)</h5>
-                        <form>
+                        <!-- Password -->
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" class="form-control" name="password" id="password" required>
+                        </div>
 
-                            <!-- Username -->
-                            <div class="mb-4">
-                                <label for="username" class="form-label">Username:</label>
-                                <input type="text" class="form-control" name="username" id="validationDefault01" required>
-                            </div>
-
-                            <!-- Password -->
-                            <div class="mb-4">
-                                <label for="password" class="form-label">Password:</label>
-                                <input type="text" class="form-control" name="password" id="validationDefault02" required>
-                            </div>
-
-                            <!-- Login button -->
-                            <button class="btn btn-primary w-100">Login</button>
-
-
-                        </form>
-                    </div>
+                        <!-- Login button -->
+                        <button class="btn btn-primary w-100">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
 
+        <!-- Signup option -->
+        <p class="text-center mt-4 mb-0">
+            New to UWA Study Buddy? <a href="signup.html">Sign Up Here!</a>
+        </p>
     </div>
-
-    <!-- Signup option -->
-    <p class="text-center mt-3 mb-0">
-        New to UWA Study Buddy? <a href="signup.html">Sign Up Here!</a>
-    </p>
-
 </body>
 </html>
