@@ -1,11 +1,12 @@
-<!--This is where the homepage is-->
+<!--This is where the create group page is-->
 
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
@@ -14,82 +15,99 @@
 
     <!--Imports the JavaScript file for form validation-->
     <script src="{{ url_for('static', filename='JS/createGroup.js') }}"></script>
-
 </head>
 
-<!-- Navbar -->
 <body class="bg-light bg-gradient">
-    <!-- Navbar - Uses a custom gradient-->
-
     {% include 'navbar.html' %}
 
     <!-- Main Content-->
-    <div class="container my-5">
-        <div class="bg-container container-text p-4 rounded">
-            <h1 class="text-center mb-4">Create a Study Group</h1>
-            
-            <!-- Send the completed form data to the Flask create_group route using POST -->
-            <form id="createGroupForm" method ="POST" action="{{ url_for('create_group.create_group') }}">
-                <div class="mb-3">
-                    <label for="unitCode" class="form-label">Unit Code</label>
-                    <input type="text" class="form-control" id="unitCode" name="unitCode" placeholder="Example: CITS3403" required>
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="display-5">Create a Study Group</h1>
+                <p class="lead">Fill in the details below to set up a new group for your unit.</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card-style card-padding">
+                    <!-- Send the completed form data to the Flask create_group route using POST -->
+                    <form id="createGroupForm" method="POST" action="{{ url_for('create_group.create_group') }}">
+
+                        <h5 class="mb-3">Group Details</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="unitCode" class="form-label">Unit Code</label>
+                                <input type="text" class="form-control" id="unitCode" name="unitCode" placeholder="Example: CITS3403" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="faculty" class="form-label">Faculty</label>
+                                <input type="text" class="form-control" id="faculty" name="faculty" placeholder="Example: Computer Science" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="unitName" class="form-label">Unit Name</label>
+                                <input type="text" class="form-control" id="unitName" name="unitName" placeholder="Example: Agile Web Development" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="topic" class="form-label">Study Topic</label>
+                                <input type="text" class="form-control" id="topic" name="topic" placeholder="Example: Assignment 2 discussion" required>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h5 class="mb-3">Study Session Information</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a short description of the group"></textarea>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="materials" class="form-label">Materials to Discuss</label>
+                                <textarea class="form-control" id="materials" name="materials" rows="3" placeholder="Example: lecture slides, lab work, assignment questions"></textarea>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="date" name="date">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="time" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="time" name="time">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or TBD">
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h5 class="mb-3">Group Size</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="members" class="form-label">Maximum Members</label>
+                                <input type="number" class="form-control" id="members" name="members" placeholder="Example: 5" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <!--Cancel Button-->
+                            <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Cancel</a>
+
+                            <!--Submit button-->
+                            <button type="submit" id="submitButton" class="btn btn-primary">Create Group</button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="mb-3">
-                    <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="faculty" name="faculty" placeholder="Example: Computer Science or Engineering" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="unitName" class="form-label">Unit Name</label>
-                    <input type="text" class="form-control" id="unitName" name="unitName" placeholder="Example: Agile Web Development" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="topic" class="form-label">Study Topic</label>
-                    <input type="text" class="form-control" id="topic" name="topic" placeholder="Example: Assignment 2 discussion" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a short description of the group"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="materials" class="form-label">Materials to Discuss</label>
-                    <textarea class="form-control" id="materials" name="materials" rows="3" placeholder="Example: lecture slides, lab work, assignment questions"></textarea>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="date" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="date" name="date">
-                    </div>
- 
-                    <div class="col-md-4 mb-3">
-                        <label for="time" class="form-label">Time</label>
-                        <input type="time" class="form-control" id="time" name="time">
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or TBD">
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="members" class="form-label">Maximum Members</label>
-                    <input type="number" class="form-control" id="members" name="members" placeholder="Example: 5" min="1" required>
-                </div>
-
-                <div class="d-flex justify-content-between">
-                    <!--Cancel Button-->
-                    <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Cancel</a>
-
-                    <!--Submit button-->
-                    <button type="submit" id="submitButton" class="btn btn-primary">Create Group</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </body>
