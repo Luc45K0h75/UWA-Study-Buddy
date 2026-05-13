@@ -8,7 +8,8 @@ from routes.addSession import add_session_blueprint # For the add session file
 from routes.myGroups import my_groups_blueprint # For the my groups file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
-from models import User #importing the user class from models.py
+import sqlalchemy as sa
+from models import User, Unit, Groups, StudentGroups # importing database models
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -68,39 +69,42 @@ def login_page():
 # Handles the View Profile page
 @app.route("/view-profile")
 def view_profile():
-    from database import get_data
-
-    connection = get_data()
-
     # Temporary user until login is connected properly
     student_id = 12345678
 
     # Get the student's basic profile details
-    user = connection.execute("""
-        SELECT StudentID, Username, Course, GraduationYear, Email
-        FROM User
-        WHERE StudentID = ?
-    """, (student_id,)).fetchone()
+    user = db.session.execute(
+        sa.select(
+            User.StudentID,
+            User.Username,
+            User.Course,
+            User.GraduationYear,
+            User.Email
+        ).where(User.StudentID == student_id)
+    ).mappings().first()
 
     # Get up to 4 units connected to the student's groups
-    preferred_units = connection.execute("""
-        SELECT DISTINCT u.UnitName
-        FROM Unit u
-        JOIN Groups g ON u.UnitID = g.UnitID
-        JOIN StudentGroups sg ON g.GroupID = sg.GroupID
-        WHERE sg.StudentID = ?
-        LIMIT 4
-    """, (student_id,)).fetchall()
+    preferred_units = db.session.execute(
+        sa.select(Unit.UnitName)
+        .distinct()
+        .join(Groups, Unit.UnitID == Groups.UnitID)
+        .join(StudentGroups, Groups.GroupID == StudentGroups.GroupID)
+        .where(StudentGroups.StudentID == student_id)
+        .limit(4)
+    ).mappings().all()
 
     # Get up to 3 groups the student has joined
-    joined_groups = connection.execute("""
-        SELECT g.GroupName, u.UnitName, g.Description
-        FROM Groups g
-        JOIN Unit u ON g.UnitID = u.UnitID
-        JOIN StudentGroups sg ON g.GroupID = sg.GroupID
-        WHERE sg.StudentID = ?
-        LIMIT 3
-    """, (student_id,)).fetchall()
+    joined_groups = db.session.execute(
+        sa.select(
+            Groups.GroupName,
+            Unit.UnitName,
+            Groups.Description
+        )
+        .join(Unit, Groups.UnitID == Unit.UnitID)
+        .join(StudentGroups, Groups.GroupID == StudentGroups.GroupID)
+        .where(StudentGroups.StudentID == student_id)
+        .limit(3)
+    ).mappings().all()
 
     # Simple stats for the profile page
     stats = {
@@ -108,8 +112,6 @@ def view_profile():
         "sessions_attended": 0,
         "favourite_unit": preferred_units[0]["UnitName"] if preferred_units else "No unit yet"
     }
-
-    connection.close()
 
     return render_template(
         "viewProfile.html",
