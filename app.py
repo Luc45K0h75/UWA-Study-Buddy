@@ -9,12 +9,19 @@ from routes.myGroups import my_groups_blueprint # For the my groups file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 from models import User #importing the user class from models.py
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required #this is for the login route/to ensure user remains logged in when navigating pages (login session)
+from werkzeug.security import generate_password_hash, check_password_hash #to hash the password when users sign up, for security
 
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
+
+#Initialising Login Manager. This is the controller of the login session system.
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login_page"
 
 # When Syifa and I create our dates, they were stored as different data types
 @app.template_filter('dateconverter')
@@ -31,19 +38,54 @@ app.register_blueprint(my_groups_blueprint)
 @app.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
-        StudentID = int(request.form.get("student_id"))
+        StudentID = request.form.get("student_id")
         Firstname = request.form.get("firstname")
         Lastname = request.form.get("lastname")
         Username = request.form.get("username")
-        Password = request.form.get("password") #password hashing will be required
+        raw_password = request.form.get("password") #obtaining the actual raw password, which will then be hashed
         Course = request.form.get("course")
         Email = request.form.get("email")
         GraduationYear = request.form.get("graduation")
         birthday_string = request.form.get("birthday") #Obtaining the input birthday string
-        Birthday = datetime.strptime(birthday_string, "%Y-%m-%d") if birthday_string else None #converting the birthday string into datetime format
+
+        #Backend validation to ensure that all input signup fields are completed
+        if not all([
+            student_id,
+            firstname,
+            lastname,
+            username,
+            password,
+            course,
+            email,
+            graduation_year,
+            birthday_string
+        ]):
+            return render_template("signup.html", error= "Please complete all fields")
+        
+        #Checking that the student ID entered is numeric
+        if not student_id.isdigit():
+            return render_template("signup.html", error= "Invalid Student ID")
+        
+        #Checking that the student ID is 8-digits long
+        if len(student_id) != 8:
+            return render_template("signup.html", error= "Invalid: Student ID must be 8 digits")
+        
+        #Checking if a profile has already been created, using the student id
+        existing_studentid=User.query.filter_by(StudentID=student_id).first()
+        if existing_studentid:
+            return ender_template("signup.html", error= "Student ID already has been registered.")
+        
+        #Hashing the obtained password string:
+        hashed_password = generate_password_hash(raw_password)
+
+        #Ensuring the birthday String is converted correctly in datetime format. 
+        try:
+            Birthday = datetime.strptime(birthday_string, "%Y-%m-%d")
+        except ValueError:
+            return ender_template("signup.html", error= "Invalid birthday format") #issues an error if users enter birthday in wrong format
 
         #Once information obtained, to create new profile, using the User Class
-        new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=Password, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
+        new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=hashed_passsword, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
         db.session.add(new_profile_user)
         db.session.commit()
 
@@ -56,17 +98,29 @@ def login_page():
         Username = request.form.get("username")
         Password = request.form.get("password")
 
-        #Checking if the username and password exists in the db/if user exists
-        check_user = User.query.filter_by(Username=Username, Password=Password).first()
+        #Checking if the username exists in the db/if user exists
+        check_user = User.query.filter_by(Username=Username).first() #as passwords are hashed, user.query.filter will no longer work to check password
 
-        if check_user:
-            return redirect(url_for("view_profile")) #or maybe homepage?
+        if check_user and check_password_hash(check_user.Password, Password): 
+            login_user(check_user)
+            return redirect(url_for("view_profile"))
         else:
             return render_template("loginpage.html", error="Invalid Username or Password, please try again")
     return render_template("loginpage.html")
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route("/logout") #this allows the user to be logged out, and then redirects to login page
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login_page"))
+
 # Handles the View Profile page
 @app.route("/view-profile")
+@login_required #ensuring that user is logged in before accessing this page
 def view_profile():
     from database import get_data
 
