@@ -142,7 +142,7 @@ def upgrade():
                existing_nullable=False)
         batch_op.alter_column('Birthday',
                existing_type=sa.TEXT(),
-               type_=sa.DateTime(),
+               type_=sa.Date(),
                existing_nullable=False)
 
     # ### end Alembic commands ###
