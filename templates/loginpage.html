@@ -28,7 +28,7 @@
                 <div class="card-style card-padding">
                     <h5 class="text-center mb-4">Enter your details below</h5>
 
-                    <form method="POST" action="{{ url_for('login_page') }}">
+                    <form method="POST" action="{{ url_for('login_page.login_page') }}">
                         <!-- Username -->
                         <div class="mb-4">
                             <label for="username" class="form-label">Username</label>
@@ -50,7 +50,7 @@
 
     <!-- Signup option -->
     <p class="text-center mt-3 mb-0">
-        New to UWA Study Buddy? <a href="{{ url_for('sign_up') }}">Sign Up Here!</a>   <!-- Fixed the connection to the signup page -->
+        New to UWA Study Buddy? <a href="{{ url_for('sign_up.sign_up') }}">Sign Up Here!</a>   <!-- Fixed the connection to the signup page -->
     </p>
 
 </body>
