@@ -142,7 +142,7 @@ def upgrade():
                existing_nullable=False)
         batch_op.alter_column('Birthday',
                existing_type=sa.TEXT(),
-               type_=sa.DateTime(),
+               type_=sa.Date(),
                existing_nullable=False)
 
     # ### end Alembic commands ###
@@ -153,7 +153,7 @@ def downgrade():
     with op.batch_alter_table('User', schema=None) as batch_op:
         batch_op.alter_column('Birthday',
                existing_type=sa.DateTime(),
-               type_=sa.TEXT(),
+               type_=sa.Date(),
                existing_nullable=False)
         batch_op.alter_column('Email',
                existing_type=sa.String(length=50),

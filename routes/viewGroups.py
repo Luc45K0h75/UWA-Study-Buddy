@@ -3,6 +3,7 @@ from extensions import db
 from datetime import datetime # For use in the query
 from models import Groups, Unit, GroupType, Faculty, StudentGroups
 import sqlalchemy as sa
+from flask_login import login_required, current_user #using the flask-login extension to maintain user login-session
 
 
 # Creates the blueprint to handle viewGroups.html
@@ -10,6 +11,7 @@ view_groups_blueprint = Blueprint('view_groups', __name__)
 
 #Paths to the page in the url browser
 @view_groups_blueprint.route('/view-groups')
+@login_required #ensuring user is logged in before they access this page
 
 def view_groups():
     # First is to get all of the filters that allow for you to search for a grouo
