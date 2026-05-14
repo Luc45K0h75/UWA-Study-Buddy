@@ -34,11 +34,11 @@
         <!-- Features -->
         <div class="row g-3">
             <div class="col-sm-3">
-                <div class="card-style card-padding h-100 text-center">
+                <div class="card-style card-padding h-100 text-center d-flex flex-column">
                     <i class="bi bi-search fs-1"></i>
                     <h5>Discover Study Groups</h5>
                     <p>Browse available study groups and find one that suits your unit.</p>
-                    <button type="button" class="btn btn-success"
+                    <button type="button" class="btn btn-success mt-auto"
                         onclick="window.location.href='{{ url_for('view_groups.view_groups') }}'">
                         View groups
                     </button>
@@ -47,11 +47,11 @@
 
             <!-- View My Groups -->
             <div class="col-sm-3">
-                <div class="card-style card-padding h-100 text-center">
+                <div class="card-style card-padding h-100 text-center d-flex flex-column">
                     <i class="bi bi-people-fill fs-1"></i>
                     <h5>View My Groups</h5>
                     <p>See the study groups you are already part of.</p>
-                    <button type="button" class="btn btn-success"
+                    <button type="button" class="btn btn-success mt-auto"
                         onclick="window.location.href='{{ url_for('my_groups.my_groups') }}'">
                         My groups
                     </button>
@@ -60,11 +60,11 @@
 
             <!-- Create Study Group -->
             <div class="col-sm-3">
-                <div class="card-style card-padding h-100 text-center">
+                <div class="card-style card-padding h-100 text-center d-flex flex-column">
                     <i class="bi bi-book fs-1"></i>
                     <h5>Create a Study Group</h5>
                     <p>Start a new group for a unit, topic or upcoming assessment.</p>
-                    <button type="button" class="btn btn-success"
+                    <button type="button" class="btn btn-success mt-auto"
                         onclick="window.location.href='{{ url_for('create_group.create_group') }}'">
                         Create group
                     </button>
@@ -73,11 +73,11 @@
 
             <!-- This will be changed later as notifications will be a pop-up -->
             <div class="col-sm-3">
-                <div class="card-style card-padding h-100 text-center">
+                <div class="card-style card-padding h-100 text-center d-flex flex-column">
                     <i class="bi bi-bell fs-1"></i>
                     <h5>View Notifications</h5>
                     <p>Notifications will appear here once this feature is added.</p>
-                    <button type="button" class="btn btn-success" onclick="window.location.href='notifications.html'" disabled>
+                    <button type="button" class="btn btn-success mt-auto" onclick="window.location.href='notifications.html'" disabled>
                         Coming soon
                     </button>
                 </div>
@@ -99,12 +99,16 @@
             {% for u in upcoming_events %}
             <div class="col-sm-4">
                 <div class="card card-style card-padding h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-center" style="color: purple;">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
-                        <h5 class="card-text text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
-                        <h5 class="card-text text-start">Hosted by: {{ u['GroupName'] }}</h5>
-                        <h5 class="card-text text-start">Location: {{ u['Location'] }}</h5>
-                        <h5 class="card-text text-start">Description: {{ u['Description'] }}</h5>
+                    <div class="card-body p-0">
+                        <div style="background-color: rgba(128, 0, 128, 0.08); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <h5 class="card-title text-center mb-0" style="color: purple;">{{ u['UnitName'] }}: {{ u['Name'] }}</h5>
+                        </div>
+                        <div class="px-2">
+                            <h5 class="card-text text-start">Date: {{ u['SessionDateTime'] | dateconverter }}</h5>
+                            <h5 class="card-text text-start">Hosted by: {{ u['GroupName'] }}</h5>
+                            <h5 class="card-text text-start">Location: {{ u['Location'] }}</h5>
+                            <h5 class="card-text text-start">Description: {{ u['Description'] }}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,11 +139,16 @@
             {% for g in new_groups %}
             <div class="col-sm-4">
                 <div class="card card-style card-padding h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-center" style="color: purple;">{{ g['GroupName'] }}</h5>
-                        <h5 class="card-text text-start">Group Type: {{ g['GroupType'] }}</h5>
-                        <h5 class="card-text text-start">Unit: {{ g['UnitName'] }}</h5>
-                        <h5 class="card-text text-start">Description: {{ g['Description'] }}</h5>
+                    <div class="card-body p-0">
+                        <!-- Subtle background block behind the title -->
+                        <div style="background-color: rgba(128, 0, 128, 0.08); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <h5 class="card-title text-center mb-0" style="color: purple;">{{ g['GroupName'] }}</h5>
+                        </div>
+                        <div class="px-2">
+                            <h5 class="card-text text-start">Group Type: {{ g['GroupType'] }}</h5>
+                            <h5 class="card-text text-start">Unit: {{ g['UnitName'] }}</h5>
+                            <h5 class="card-text text-start">Description: {{ g['Description'] }}</h5>
+                        </div>
                     </div>
                 </div>
             </div>

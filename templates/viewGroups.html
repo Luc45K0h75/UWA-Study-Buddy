@@ -27,6 +27,7 @@
             </div>
         </div>
 
+        <!-- Filter form uses GET so no CSRF token needed -->
         <form method="GET" action="{{ url_for('view_groups.view_groups') }}">
             <div class="row g-3">
                 <!-- Filter by Faculty -->
@@ -86,6 +87,15 @@
             </div>
         </div>
 
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <!-- Row for displaying groups -->
         <div class="row g-3">
             {% if groups %}
@@ -101,6 +111,9 @@
                             <div class="card-footer bg-transparent text-center">
                                 <!-- Form to join the group, sends a POST request -->
                                 <form method="POST" action="{{ url_for('view_groups.join_group') }}">
+
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">  <!-- CSRF protection -->
+                                    
                                     <input type="hidden" name="group_id" value="{{ group['GroupID'] }}">
                                     <button type="submit" class="btn btn-primary mt-2">Join Group</button>
                                 </form>

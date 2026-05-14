@@ -28,7 +28,14 @@
                 <div class="card-style card-padding">
                     <h5 class="text-center mb-4">Enter your details below</h5>
 
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+
                     <form method="POST" action="{{ url_for('sign_up.sign_up') }}">
+                        
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">  <!-- CSRF protection -->
+
                         <h5 class="mb-3">Personal Details</h5>
                         <div class="row g-3">
                             <!-- First name -->

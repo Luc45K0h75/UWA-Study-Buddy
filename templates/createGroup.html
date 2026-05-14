@@ -34,6 +34,8 @@
                 <div class="card-style card-padding">
                     <!-- Send the completed form data to the Flask create_group route using POST -->
                     <form id="createGroupForm" method="POST" action="{{ url_for('create_group.create_group') }}">
+                        
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">  <!-- CSRF protection -->
 
                         <h5 class="mb-3">Group Details</h5>
                         <div class="row g-3">
