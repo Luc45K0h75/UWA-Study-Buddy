@@ -1,18 +1,17 @@
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!--Imports Lucas's CSS file that overlays bootstrap-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
-<!-- Navbar -->
 <body class="bg-light bg-gradient">
     {% include 'navbar.html' %}
 
