@@ -25,7 +25,7 @@
                     <h5 class= "card-header text-center">Sign-Up</h5>
                     <div class ="card-body">
                         <h5 class="card-title text-center">Create your profile to get started :)</h5>
-                        <form>
+                        <form method="POST" action="{{ url_for('sign_up') }}">
 
                             <!-- First name -->
                             <div class="mb-4">

@@ -72,7 +72,7 @@ def sign_up():
             return render_template("signup.html", error= "Invalid: Student ID must be 8 digits")
         
         #Checking if a profile has already been created, using the student id
-        existing_studentid=User.query.filter_by(StudentID=student_id).first()
+        existing_studentid=User.query.filter_by(StudentID=StudentID).first()
         if existing_studentid:
             return render_template("signup.html", error= "Student ID already has been registered.")
         
@@ -81,12 +81,12 @@ def sign_up():
 
         #Ensuring the birthday String is converted correctly in datetime format. 
         try:
-            Birthday = datetime.strptime(birthday_string, "%Y-%m-%d")
+            Birthday = datetime.strptime(birthday_string, "%Y-%m-%d").strftime("%Y-%m-%d")
         except ValueError:
             return render_template("signup.html", error= "Invalid birthday format") #issues an error if users enter birthday in wrong format
 
         #Once information obtained, to create new profile, using the User Class
-        new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=hashed_passsword, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
+        new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=hashed_password, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
         db.session.add(new_profile_user)
         db.session.commit()
 
