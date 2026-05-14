@@ -19,17 +19,17 @@
     <div class="container-fluid p-5 my-5 bg-container container-text">
         <div class="row align-items-center">
             <div class="col-md-3 text-center mb-4 mb-md-0">
-                <div class="profile-avatar mx-auto d-flex align-items-center justify-content-center">
-                    <i class="bi bi-person-fill profile-avatar-icon"></i>
+                <div class="card-style card-padding mx-auto d-flex align-items-center justify-content-center" style="width: 120px; height: 120px; border-radius: 50%;">
+                    <i class="bi bi-person-fill fs-1" style="color: purple;"></i>
                 </div>
             </div>
 
             <div class="col-md-9">
-                <h1 class="display-4">Student Profile</h1>
+                <h1 class="display-5">Student Profile</h1>
                 <h3>{{ username }}</h3>
                 <p class="lead mb-2">Degree/Major: {{ user['Course'] if user else 'Not added yet' }}</p>
                 <p class="lead mb-2">Graduation Year: {{ user['GraduationYear'] if user else 'Not added yet' }}</p>
-                <p class="lead">Bio: This student is using UWA Study Buddy to find and join study groups.</p>
+                <p class="lead mb-0">Bio: This student is using UWA Study Buddy to find and join study groups.</p>
             </div>
         </div>
     </div>
