@@ -28,7 +28,7 @@
                 <div class="card-style card-padding">
                     <h5 class="text-center mb-4">Enter your details below</h5>
 
-                    <form>
+                    <form method="POST" action="{{ url_for('sign_up') }}">
                         <h5 class="mb-3">Personal Details</h5>
                         <div class="row g-3">
                             <!-- First name -->
@@ -52,7 +52,7 @@
                             <!-- Birthday -->
                             <div class="col-md-6">
                                 <label for="birthday" class="form-label">Birthday</label>
-                                <input type="datetime" class="form-control" name="birthday" id="validationDefault04" required>
+                                <input type="date" class="form-control" name="birthday" id="validationDefault04" required>
                             </div>
                         </div>
 
@@ -105,7 +105,7 @@
 
         <!-- Login option -->
         <p class="text-center mt-4 mb-0">
-            Already have a profile? <a href="loginpage.html">Login Here!</a>
+            Already have a profile? <a href="{{ url_for('login_page') }}">Login Here!</a>
         </p>
     </div>
 </body>
