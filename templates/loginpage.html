@@ -28,7 +28,7 @@
                 <div class="card-style card-padding">
                     <h5 class="text-center mb-4">Enter your details below</h5>
 
-                    <form>
+                    <form method="POST" action="{{ url_for('login_page') }}">
                         <!-- Username -->
                         <div class="mb-4">
                             <label for="username" class="form-label">Username</label>

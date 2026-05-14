@@ -102,6 +102,7 @@ def login_page():
         #Checking if the username exists in the db/if user exists
         check_user = User.query.filter_by(Username=Username).first() #as passwords are hashed, user.query.filter will no longer work to check password
 
+
         if check_user and check_password_hash(check_user.Password, Password): 
             login_user(check_user)
             return redirect(url_for("view_profile"))
@@ -124,7 +125,7 @@ def logout():
 @login_required #ensuring that user is logged in before accessing this page
 def view_profile():
     # Temporary user until login is connected properly
-    student_id = 12345678
+    student_id = current_user.StudentID 
 
     # Get the student's basic profile details
     user = db.session.execute(
