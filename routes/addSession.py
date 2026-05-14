@@ -3,11 +3,13 @@ from extensions import db
 from models import Groups, Session
 from datetime import datetime
 import sqlalchemy as sa
+from flask_login import login_required, current_user #using the flask-login extension to maintain user login-session
 
 # Creates the blueprint to handle addSession.html
 add_session_blueprint = Blueprint('add_session', __name__)
 
 @add_session_blueprint.route("/add-session", methods=["GET", "POST"])
+@login_required #ensuring user is logged in before they access this page
 def add_session():
     if request.method == "POST":
         group_id = request.form.get("group_id")
