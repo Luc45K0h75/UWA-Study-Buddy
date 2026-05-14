@@ -34,7 +34,7 @@ class GroupType(db.Model):
 class Unit(db.Model):
     __tablename__ = 'Unit'
     UnitID: so.Mapped[int] = so.mapped_column(primary_key=True)
-    UnitCode: so.Mapped[int] = so.mapped_column(nullable=False)
+    UnitCode: so.Mapped[str] = so.mapped_column(sa.String(10), nullable=False) 
     UnitName: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     FacultyID: so.Mapped[Optional[int]] = so.mapped_column(sa.ForeignKey('Faculty.FacultyID'), nullable=True)
 
