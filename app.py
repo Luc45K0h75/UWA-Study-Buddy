@@ -51,30 +51,30 @@ def sign_up():
 
         #Backend validation to ensure that all input signup fields are completed
         if not all([
-            student_id,
-            firstname,
-            lastname,
-            username,
-            password,
-            course,
-            email,
-            graduation_year,
+            StudentID,
+            Firstname,
+            Lastname,
+            Username,
+            raw_password,
+            Course,
+            Email,
+            GraduationYear,
             birthday_string
         ]):
             return render_template("signup.html", error= "Please complete all fields")
         
         #Checking that the student ID entered is numeric
-        if not student_id.isdigit():
+        if not StudentID.isdigit():
             return render_template("signup.html", error= "Invalid Student ID")
         
         #Checking that the student ID is 8-digits long
-        if len(student_id) != 8:
+        if len(StudentID) != 8:
             return render_template("signup.html", error= "Invalid: Student ID must be 8 digits")
         
         #Checking if a profile has already been created, using the student id
         existing_studentid=User.query.filter_by(StudentID=student_id).first()
         if existing_studentid:
-            return ender_template("signup.html", error= "Student ID already has been registered.")
+            return render_template("signup.html", error= "Student ID already has been registered.")
         
         #Hashing the obtained password string:
         hashed_password = generate_password_hash(raw_password)
@@ -83,7 +83,7 @@ def sign_up():
         try:
             Birthday = datetime.strptime(birthday_string, "%Y-%m-%d")
         except ValueError:
-            return ender_template("signup.html", error= "Invalid birthday format") #issues an error if users enter birthday in wrong format
+            return render_template("signup.html", error= "Invalid birthday format") #issues an error if users enter birthday in wrong format
 
         #Once information obtained, to create new profile, using the User Class
         new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=hashed_passsword, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
