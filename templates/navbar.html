@@ -26,12 +26,17 @@
             </div>
         </div>
 
-        <!-- Login button -->
-         {% if username %}
-         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile') }}'">
+        <!-- Login/logout button -->
+         {% if current_user.is_authenticated %}  <!-- Using flask-login, if user is logged in it will come up as logout button, otherwise just as a login button-->
+         <button class="login-button" onclick="window.location.href='{{ url_for('view_profile.view_profile') }}'">
             <i class="bi bi-person-circle fs-5"></i>
          </button>
+
+         <button class="login-button" onclick="window.location.href='{{ url_for('logout.logout') }}'">
+            Logout
+         </button>
+
         {% else %}
-         <button class="login-button" onclick="window.location.href='{{ url_for('login_page') }}'">Login</button>
+         <button class="login-button" onclick="window.location.href='{{ url_for('login_page.login_page') }}'">Login</button>
          {% endif %}
     </nav>

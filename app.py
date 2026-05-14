@@ -6,16 +6,27 @@ from routes.viewGroups import view_groups_blueprint # For the view groups file
 from routes.create_group import create_group_blueprint # For the create group file
 from routes.addSession import add_session_blueprint # For the add session file
 from routes.myGroups import my_groups_blueprint # For the my groups file
+from routes.viewProfile import view_profile_blueprint # For the view profile file
+from routes.signup import sign_up_blueprint # For the signup file
+from routes.loginPage import login_page_blueprint # For the login page file
+from routes.logout import logout_blueprint # For the logout file
 from extensions import db, migrate # For the database and migration
 from datetime import datetime
 import sqlalchemy as sa
 from models import User, Unit, Groups, StudentGroups # importing database models
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required #this is for the login route/to ensure user remains logged in when navigating pages (login session)
+from werkzeug.security import generate_password_hash, check_password_hash #to hash the password when users sign up, for security
 
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
+
+#Initialising Login Manager. This is the controller of the login session system.
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login_page.login_page"
 
 # When Syifa and I create our dates, they were stored as different data types
 @app.template_filter('dateconverter')
@@ -28,99 +39,20 @@ app.register_blueprint(view_groups_blueprint)
 app.register_blueprint(create_group_blueprint)
 app.register_blueprint(add_session_blueprint)
 app.register_blueprint(my_groups_blueprint)
+app.register_blueprint(view_profile_blueprint)
+app.register_blueprint(sign_up_blueprint)
+app.register_blueprint(login_page_blueprint)
+app.register_blueprint(logout_blueprint)
 
-@app.route("/sign-up", methods=["GET", "POST"])
-def sign_up():
-    if request.method == "POST":
-        StudentID = int(request.form.get("student_id"))
-        Firstname = request.form.get("firstname")
-        Lastname = request.form.get("lastname")
-        Username = request.form.get("username")
-        Password = request.form.get("password") #password hashing will be required
-        Course = request.form.get("course")
-        Email = request.form.get("email")
-        GraduationYear = request.form.get("graduation")
-        birthday_string = request.form.get("birthday") #Obtaining the input birthday string
-        Birthday = datetime.strptime(birthday_string, "%Y-%m-%d") if birthday_string else None #converting the birthday string into datetime format
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-        #Once information obtained, to create new profile, using the User Class
-        new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=Password, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
-        db.session.add(new_profile_user)
-        db.session.commit()
-
-        return redirect(url_for("login_page")) #once user is succcessfully signed up, they will be redirected to the login page
-    return render_template("signup.html")
-
-@app.route("/login-page", methods=["GET", "POST"])
-def login_page():
-    if request.method == "POST":
-        Username = request.form.get("username")
-        Password = request.form.get("password")
-
-        #Checking if the username and password exists in the db/if user exists
-        check_user = User.query.filter_by(Username=Username, Password=Password).first()
-
-        if check_user:
-            return redirect(url_for("view_profile")) #or maybe homepage?
-        else:
-            return render_template("loginpage.html", error="Invalid Username or Password, please try again")
-    return render_template("loginpage.html")
-
-# Handles the View Profile page
-@app.route("/view-profile")
-def view_profile():
-    # Temporary user until login is connected properly
-    student_id = 12345678
-
-    # Get the student's basic profile details
-    user = db.session.execute(
-        sa.select(
-            User.StudentID,
-            User.Username,
-            User.Course,
-            User.GraduationYear,
-            User.Email
-        ).where(User.StudentID == student_id)
-    ).mappings().first()
-
-    # Get up to 4 units connected to the student's groups
-    preferred_units = db.session.execute(
-        sa.select(Unit.UnitName)
-        .distinct()
-        .join(Groups, Unit.UnitID == Groups.UnitID)
-        .join(StudentGroups, Groups.GroupID == StudentGroups.GroupID)
-        .where(StudentGroups.StudentID == student_id)
-        .limit(4)
-    ).mappings().all()
-
-    # Get up to 3 groups the student has joined
-    joined_groups = db.session.execute(
-        sa.select(
-            Groups.GroupName,
-            Unit.UnitName,
-            Groups.Description
-        )
-        .join(Unit, Groups.UnitID == Unit.UnitID)
-        .join(StudentGroups, Groups.GroupID == StudentGroups.GroupID)
-        .where(StudentGroups.StudentID == student_id)
-        .limit(3)
-    ).mappings().all()
-
-    # Simple stats for the profile page
-    stats = {
-        "groups_joined": len(joined_groups),
-        "sessions_attended": 0,
-        "favourite_unit": preferred_units[0]["UnitName"] if preferred_units else "No unit yet"
-    }
-
-    return render_template(
-        "viewProfile.html",
-        username=user["Username"] if user else "Student",
-        user=user,
-        preferred_units=preferred_units,
-        joined_groups=joined_groups,
-        stats=stats
-    )
+@app.route("/logout") #this allows the user to be logged out, and then redirects to login page
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login_page.login_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)

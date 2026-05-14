@@ -3,19 +3,23 @@ import sqlalchemy as sa
 import sqlalchemy.orm as so
 from extensions import db
 from typing import Optional
+from flask_login import UserMixin #UserMixin is a helper class, which indicates that user should be seen as a flask-login user
 
 # Objects representing entities in the database
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'User'
     StudentID: so.Mapped[int] =so.mapped_column(primary_key=True)
-    #Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    #Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Username: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    Password: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    Password: so.Mapped[str] = so.mapped_column(sa.String(250), nullable=False)
     Course: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Email: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     GraduationYear: so.Mapped[int] = so.mapped_column(nullable=False)
     Birthday: so.Mapped[int] = so.mapped_column(nullable=False)
+
+    def get_id(self): #student ID is used as the identifier by flask-login, to identify the particular user in session
+        return str(self.StudentID) 
 
 class Faculty(db.Model):
     __tablename__ = 'Faculty'
