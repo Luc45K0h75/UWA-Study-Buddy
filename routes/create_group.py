@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from helpers import create_group_in_db
+from flask_login import login_required, current_user #using the flask-login extension to maintain user login-session
 
 # Creates the blueprint to handle createGroup.html
 create_group_blueprint = Blueprint('create_group', __name__)
 
 # Handles both loading the page (GET) and submitting the form (POST)
 @create_group_blueprint.route("/create-group", methods=["GET", "POST"])
+@login_required #ensuring user is logged in before they access this page
 def create_group():
     # If the form is submitted, read the values entered by the user
     if request.method == "POST":

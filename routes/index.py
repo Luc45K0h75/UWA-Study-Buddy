@@ -4,6 +4,7 @@ from datetime import datetime # For use in the query
 from models import User, Session, Groups, SessionType, Unit, StudentGroups, GroupType
 from extensions import db
 import sqlalchemy as sa
+from flask_login import current_user #using the flask-login extension to maintain user login-session
 
 # Creates the blueprint to handle index.html
 index_blueprint = Blueprint('index', __name__)
@@ -13,35 +14,47 @@ index_blueprint = Blueprint('index', __name__)
 @index_blueprint.route('/index')
 
 def index():
-    student_id = 12345678 # Dummy to be changed later
-
-    # Get username
-    user = db.session.get(User, student_id)
-    username = user.Username if user else "Student"
 
     now = int(datetime.now().timestamp())
 
-    # Query to get upcoming events
-    upcoming_events = db.session.execute(
-        sa.select(
-            Session.SessionDateTime,
-            Session.Description,
-            Session.Location,
-            SessionType.Name,
-            Groups.GroupName,
-            Unit.UnitName
-        )
-        .join(Groups, Session.GroupID == Groups.GroupID)
-        .join(SessionType, Session.SessionTypeID == SessionType.SessionTypeID)
-        .join(Unit, Groups.UnitID == Unit.UnitID)
-        .join(StudentGroups, StudentGroups.GroupID == Groups.GroupID)
-        .where(
-            StudentGroups.StudentID == student_id,
-            Session.SessionDateTime >= now
-        )
-        .order_by(Session.SessionDateTime.asc())
-        .limit(3)
-    ).mappings().all()
+    #Editing the homepage, to be specific to logged in users vs guest users
+
+    #If a user has successfully logged in:
+    if current_user.is_authenticated:
+        student_id = current_user.StudentID
+
+        # Get username
+        user = db.session.get(User, student_id)
+        username = user.Username if user else "Student"
+
+        # Query to get upcoming events
+        upcoming_events = db.session.execute(
+            sa.select(
+                Session.SessionDateTime,
+                Session.Description,
+                Session.Location,
+                SessionType.Name,
+                Groups.GroupName,
+                Unit.UnitName
+            )
+            .join(Groups, Session.GroupID == Groups.GroupID)
+            .join(SessionType, Session.SessionTypeID == SessionType.SessionTypeID)
+            .join(Unit, Groups.UnitID == Unit.UnitID)
+            .join(StudentGroups, StudentGroups.GroupID == Groups.GroupID)
+            .where(
+                StudentGroups.StudentID == student_id,
+                Session.SessionDateTime >= now
+            )
+            .order_by(Session.SessionDateTime.asc())
+            .limit(3)
+        ).mappings().all()
+
+    #If a user has not logged in/guest user:
+    else:
+        username = "Guest"
+        upcoming_events = [] #as it is a uest user, there would not be any upcoming events for them
+
+
     # Query to find 3 most recently created groups
     new_groups = db.session.execute(
         sa.select(
