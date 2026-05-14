@@ -2,6 +2,7 @@ from datetime import datetime
 from extensions import db
 from models import Unit, Groups, Session, StudentGroups
 from flask import session
+from flask_login import current_user
 
 # Receives the create group form data from routes/create_group.py
 # Inserts the data into the Unit, Groups, and Session tables
@@ -32,12 +33,13 @@ def create_group_in_db(unit_code, unit_name, faculty_id, topic, description, mat
 
     # Add the creator as admin (RoleID=1) to the group
     # double check when the actual login implemented
-    student_id = session.get('student_id')
-    if student_id:
+
+    if current_user.is_authenticated: # Only add to StudentGroups if the user is logged in
+        student_id = current_user.StudentID
         creator = StudentGroups(
             StudentID=student_id,
             GroupID=new_group.GroupID,
-            RoleID=1        # RoleID=1 is admin
+            RoleID=2        # RoleID=2 is admin
         )
         db.session.add(creator)
 

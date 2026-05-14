@@ -68,7 +68,7 @@ def view_groups():
 # Join group button logic
 @view_groups_blueprint.route('/join-group', methods=['POST'])
 def join_group():
-    student_id = 12345678
+    student_id = current_user.StudentID # Get the student id of the logged in user from the session
     group_id = request.form.get('group_id') # Get the group id of the requested group from the form
 
     # Filter check if the student is already in the group
