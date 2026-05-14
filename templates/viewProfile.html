@@ -43,37 +43,39 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">Preferred Units</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="card-style card-padding h-100">
+                    <h5 class="text-center" style="color: purple;">Preferred Units</h5>
+                    <hr>
+                    {% if preferred_units %}
+                        {% for unit in preferred_units %}
+                            <p class="mb-2">• {{ unit['UnitName'] }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="mb-2">No preferred units yet.</p>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">Availability</h5>
-            </div>
-            <div class="col-md-4 popup-colours popup-borders-padding">
-                <h5 class="text-center">Study Style</h5>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                {% if preferred_units %}
-                    {% for unit in preferred_units %}
-                        <p class="mb-2">• {{ unit['UnitName'] }}</p>
-                    {% endfor %}
-                {% else %}
-                    <p class="mb-2">No preferred units yet.</p>
-                {% endif %}
+            <div class="col-md-4">
+                <div class="card-style card-padding h-100">
+                    <h5 class="text-center" style="color: purple;">Availability</h5>
+                    <hr>
+                    <p class="mb-2">Preferred Day: {Day Here}</p>
+                    <p class="mb-2">Preferred Time: {Time Here}</p>
+                    <p class="mb-2">Location: {Library / Online / Campus}</p>
+                </div>
             </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <p class="mb-2">Preferred Day: {Day Here}</p>
-                <p class="mb-2">Preferred Time: {Time Here}</p>
-                <p class="mb-2">Location: {Library / Online / Campus}</p>
-            </div>
-            <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                <p class="mb-2">Group Study: {Yes/No}</p>
-                <p class="mb-2">Quiet Study: {Yes/No}</p>
-                <p class="mb-2">Exam Prep Focus: {Yes/No}</p>
+
+            <div class="col-md-4">
+                <div class="card-style card-padding h-100">
+                    <h5 class="text-center" style="color: purple;">Study Style</h5>
+                    <hr>
+                    <p class="mb-2">Group Study: {Yes/No}</p>
+                    <p class="mb-2">Quiet Study: {Yes/No}</p>
+                    <p class="mb-2">Exam Prep Focus: {Yes/No}</p>
+                </div>
             </div>
         </div>
     </div>
