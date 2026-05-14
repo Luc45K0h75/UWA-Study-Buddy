@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     Firstname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Lastname: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Username: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
-    Password: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
+    Password: so.Mapped[str] = so.mapped_column(sa.String(250), nullable=False)
     Course: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     Email: so.Mapped[str] = so.mapped_column(sa.String(50), nullable=False)
     GraduationYear: so.Mapped[int] = so.mapped_column(nullable=False)
