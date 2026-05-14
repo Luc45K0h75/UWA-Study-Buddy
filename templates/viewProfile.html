@@ -89,29 +89,29 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row g-3">
             {% if joined_groups %}
                 {% for group in joined_groups %}
-                    <div class="col-md-4 popup-colours popup-borders-padding">
-                        <h5 class="text-center">{{ group['GroupName'] }}</h5>
+                    <div class="col-md-4">
+                        <div class="card card-style card-padding h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-center" style="color: purple;">{{ group['GroupName'] }}</h5>
+                                <hr>
+                                <p class="card-text text-start">Unit: {{ group['UnitName'] }}</p>
+                                <p class="card-text text-start">Description: {{ group['Description'] }}</p>
+                                <p class="card-text text-start">Status: Joined</p>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <h5 class="text-start">No joined groups yet.</h5>
+                <div class="col">
+                    <div class="card-style card-padding">
+                        <h5 class="mb-0">No joined groups yet.</h5>
+                    </div>
+                </div>
             {% endif %}
         </div>
-
-        {% if joined_groups %}
-        <div class="row">
-            {% for group in joined_groups %}
-                <div class="col-md-4 popup-secondary-colours popup-borders-padding">
-                    <h5 class="text-start">Unit: {{ group['UnitName'] }}</h5>
-                    <h5 class="text-start">Description: {{ group['Description'] }}</h5>
-                    <h5 class="text-start">Status: Joined</h5>
-                </div>
-            {% endfor %}
-        </div>
-        {% endif %}
     </div>
 
     <!-- Achievements / Stats -->
@@ -123,21 +123,28 @@
             </div>
         </div>
 
-        <div class="row text-center">
-            <div class="col-sm-4 col-bg-primary col-border welcome-buttoms">
-                <h4>Groups Joined</h4>
-                <p class="display-6">{{ stats['groups_joined'] }}</p>
+        <div class="row g-3 text-center">
+            <div class="col-sm-4">
+                <div class="card-style card-padding h-100">
+                    <h4 style="color: purple;">Groups Joined</h4>
+                    <p class="display-6 mb-0">{{ stats['groups_joined'] }}</p>
+                </div>
             </div>
 
-            <div class="col-sm-4 col-bg-secondary col-border welcome-buttoms">
-                <h4>Sessions Attended</h4>
-                <p class="display-6">{{ stats['sessions_attended'] }}</p>
+            <div class="col-sm-4">
+                <div class="card-style card-padding h-100">
+                    <h4 style="color: purple;">Sessions Attended</h4>
+                    <p class="display-6 mb-0">{{ stats['sessions_attended'] }}</p>
+                </div>
             </div>
 
-            <div class="col-sm-4 col-bg-tertiary col-border welcome-buttoms">
-                <h4>Favourite Unit</h4>
-                <p class="display-6">{{ stats['favourite_unit'] }}</p>
+            <div class="col-sm-4">
+                <div class="card-style card-padding h-100">
+                    <h4 style="color: purple;">Favourite Unit</h4>
+                    <p class="display-6 mb-0">{{ stats['favourite_unit'] }}</p>
+                </div>
             </div>
         </div>
     </div>
 </body>
+</html>
