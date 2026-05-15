@@ -1,15 +1,14 @@
-# Selenium tests for the functionality of different parts of the website.
+# Selenium tests for the functionality of signup and login pages.
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 import random
 
 # Base URL for the Flask app
-BASE_URL = 'http://127.0.0.1:5000'
+BASE_URL = 'http://127.0.0.1:5001'
 
 class TestStudyBuddy(unittest.TestCase):
     # Setup method to initialize the WebDriver using ChromeDriver
@@ -112,3 +111,13 @@ class TestStudyBuddy(unittest.TestCase):
         self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
         error_message = self.driver.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Invalid Username or Password, please try again", error_message)
+
+
+    # Test unauthenticated redirect from view profile page if not logged in
+    def test_unauthenticated_redirect_to_login(self):
+        # Attempt to access the profile page without logging in
+        self.driver.get(f"{BASE_URL}/view-profile")
+
+        # Should be redirected to login page
+        WebDriverWait(self.driver, 10).until(EC.url_contains("/login-page"))
+        self.assertIn("/login-page", self.driver.current_url)
