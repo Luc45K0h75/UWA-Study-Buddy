@@ -1,11 +1,12 @@
 <!--Add Session Page-->
 
 <!doctype html>
+<html lang="en">
 <head>
     <title>UWA Study Buddy</title>
     <!--Imports bootstrap into the html file.-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!--Imports bootstrap icons for use in the html file.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
@@ -14,58 +15,91 @@
 
     <!--Imports the JavaScript file for form validation-->
     <script src="{{ url_for('static', filename='JS/addSession.js') }}"></script>
-
 </head>
 
 <body class="bg-light bg-gradient">
     {% include 'navbar.html' %}
 
-    <div class="container my-5">
-        <div class="bg-container container-text p-4 rounded">
-            <h1 class="text-center mb-4">Add a Study Session</h1>
+    <!-- Main Content -->
+    <div class="container-fluid p-5 my-5 bg-container container-text">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="display-5">Add a Study Session</h1>
+                <p class="lead">Create a new session for one of the study groups you manage.</p>
+            </div>
+        </div>
 
-            <form id="addSessionForm" method="POST" action="{{ url_for('add_session.add_session') }}">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card-style card-padding">
+                    <!-- Flash messages: shows success or authorization error -->
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-info">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
 
-                <!-- Group dropdown -->
-                <div class="mb-3">
-                    <label for="group_id" class="form-label">Study Group</label>
-                    <select class="form-select" id="group_id" name="group_id" required>
-                        <option value="">Select a Group</option>
-                        {% for g in groups %}
-                            <option value="{{ g['GroupID'] }}">{{ g['GroupName'] }}</option>
-                        {% endfor %}
-                    </select>
+                    <!-- No groups warning -->
+                    {% if not groups %}
+                        <div class="alert alert-warning">
+                            You are not an admin of any groups. Create a group first before adding sessions.
+                        </div>
+                    {% endif %}
+
+                    <form id="addSessionForm" method="POST" action="{{ url_for('add_session.add_session') }}">
+                        <!-- CSRF protection (hidden, not visible to user) -->
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <h5 class="mb-3">Session Details</h5>
+
+                        <!-- Group dropdown -->
+                        <div class="mb-3">
+                            <label for="group_id" class="form-label">Study Group</label>
+                            <select class="form-select" id="group_id" name="group_id" required>
+                                <option value="">Select a Group</option>
+                                {% for g in groups %}
+                                    <option value="{{ g['GroupID'] }}">{{ g['UnitCode'] }} - {{ g['GroupName'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a short description of the session"></textarea>
+                        </div>
+
+                        <hr>
+
+                        <h5 class="mb-3">Time and Location</h5>
+
+                        <!-- Date, Time, Location -->
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="time" class="form-label">Time</label>
+                                <input type="time" class="form-control" id="time" name="time">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or Online">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" id="submitButton" class="btn btn-primary">Add Session</button>
+                        </div>
+                    </form>
                 </div>
-
-                <!-- Description -->
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a short description of the session"></textarea>
-                </div>
-
-                <!-- Date, Time, Location -->
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="date" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="time" class="form-label">Time</label>
-                        <input type="time" class="form-control" id="time" name="time">
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Example: Reid Library or Online">
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-between">
-                    <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" id="submitButton" class="btn btn-primary">Add Session</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </body>

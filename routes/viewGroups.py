@@ -14,9 +14,7 @@ view_groups_blueprint = Blueprint('view_groups', __name__)
 @login_required #ensuring user is logged in before they access this page
 
 def view_groups():
-    # First is to get all of the filters that allow for you to search for a grouo
-
-    # Get all faculties for the dropdown
+     # Get all faculties for the dropdown
     faculties = db.session.execute(
         sa.select(Faculty.FacultyID, Faculty.Name)
     ).mappings().all()
@@ -57,7 +55,6 @@ def view_groups():
 
     groups = db.session.execute(query).mappings().all()
 
-
     return render_template('viewGroups.html', 
         faculties=faculties, 
         units=units, 
@@ -67,9 +64,11 @@ def view_groups():
 
 # Join group button logic
 @view_groups_blueprint.route('/join-group', methods=['POST'])
+@login_required  # added missing @login_required decorator
+
 def join_group():
-    student_id = current_user.StudentID # Get the student id of the logged in user from the session
-    group_id = request.form.get('group_id') # Get the group id of the requested group from the form
+    student_id = current_user.StudentID  # Get the student id of the logged in user
+    group_id = request.form.get('group_id')  # Get the group id of the requested group from the form
 
     # Filter check if the student is already in the group
     existing_membership = db.session.execute(
@@ -87,8 +86,5 @@ def join_group():
     db.session.add(added_student)
     db.session.commit() 
     flash("You have successfully joined the group!")
-    return redirect(url_for('view_groups.view_groups'))
-
     
-
-
+    return redirect(url_for('view_groups.view_groups'))

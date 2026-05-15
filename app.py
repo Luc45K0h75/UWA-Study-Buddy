@@ -16,12 +16,14 @@ import sqlalchemy as sa
 from models import User, Unit, Groups, StudentGroups # importing database models
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required #this is for the login route/to ensure user remains logged in when navigating pages (login session)
 from werkzeug.security import generate_password_hash, check_password_hash #to hash the password when users sign up, for security
+from flask_wtf.csrf import CSRFProtect  # import CSRF protection
 
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
+csrf = CSRFProtect(app)  # enable CSRF protection across all POST forms
 
 #Initialising Login Manager. This is the controller of the login session system.
 login_manager = LoginManager()
@@ -42,17 +44,11 @@ app.register_blueprint(my_groups_blueprint)
 app.register_blueprint(view_profile_blueprint)
 app.register_blueprint(sign_up_blueprint)
 app.register_blueprint(login_page_blueprint)
-app.register_blueprint(logout_blueprint)
+app.register_blueprint(logout_blueprint)  # logout is handled here via blueprint only
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-@app.route("/logout") #this allows the user to be logged out, and then redirects to login page
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("login_page.login_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)

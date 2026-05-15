@@ -1,20 +1,25 @@
 from datetime import datetime
 from extensions import db
-from models import Unit, Groups, Session, StudentGroups
-from flask import session
+from models import Unit, Groups, Session, StudentGroups, Faculty
 from flask_login import current_user
 
 # Receives the create group form data from routes/create_group.py
 # Inserts the data into the Unit, Groups, and Session tables
-def create_group_in_db(unit_code, unit_name, faculty_id, topic, description, materials, date, time, location, members):
-    
+def create_group_in_db(unit_code, unit_name, faculty_name, topic, description, materials, date, time, location, members):
+    # Now accepts `faculty_name` and does a lookup/create itself.
+    faculty = Faculty.query.filter_by(Name=faculty_name).first()
+    if not faculty:
+        faculty = Faculty(Name=faculty_name)
+        db.session.add(faculty)
+        db.session.flush()  # Flush so we can access the new FacultyID before committing
+
     # Check if the unit already exists in the database. If not, create a new unit entry so we don't store duplicates
     unit = Unit.query.filter_by(UnitCode=unit_code).first()
     if not unit:
         unit = Unit(
             UnitCode=unit_code,
             UnitName=unit_name,
-            FacultyID=faculty_id
+            FacultyID=faculty.FacultyID 
         )
         db.session.add(unit)
         db.session.flush()  # Flush so we can access the new UnitID before committing
@@ -31,11 +36,9 @@ def create_group_in_db(unit_code, unit_name, faculty_id, topic, description, mat
     db.session.add(new_group)
     db.session.flush()  # Flush so we can access the new GroupID before committing
 
-    # Add the creator as admin (RoleID=1) to the group
-    # double check when the actual login implemented
-
-    if current_user.is_authenticated: # Only add to StudentGroups if the user is logged in
-        student_id = current_user.StudentID
+    # Add the creator as admin (RoleID=2) to the group
+    if current_user.is_authenticated:  # Only add to StudentGroups if the user is logged in
+        student_id = current_user.StudentID  # Get the StudentID of the current user
         creator = StudentGroups(
             StudentID=student_id,
             GroupID=new_group.GroupID,
