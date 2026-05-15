@@ -27,6 +27,7 @@ git clone https://github.com/Luc45K0h75/UWA-Study-Buddy
 cd UWA-Study-Buddy
 ```
 2. Initialise virtual environment:
+```bash
 python -m venv venv
 source venv/bin/activate  # for Mac/Linux
 venv\Scripts\activate     # for Windows
@@ -94,7 +95,7 @@ python -m pytest tests/test_selenium.py -v
 | 4 | As the creator of a study group, I would like to be able to add our sessions onto the website so that all of the members of the group know when they are occuring. | 3 |
 | 5 | As a student enrolled in a lot of groups, I would like to be able to see my closest upcoming events so that I can add them to my calendar. | 2 |
 | 6 | As a developer responsible for maintaining the website, I want to make sure that users who are not logged in cannot access particular parts of the website (such as viewing profiles or joining groups) in order to ensure the integrity and security of the website. | 3 |
-| 7 | As an administrator of the website, I would like to ensure that a student cannot input invalid data when registering a profile for the website so that there are no data integrity issues.
+| 7 | As an administrator of the website, I would like to ensure that a student cannot input invalid data when registering a profile for the website so that there are no data integrity issues. | 1 |
 | 8 | As a student, I want to ensure that my password is stored securely, so that in the case that the database is breached, my account is protected | 1 |
 | 9 | As a new student at UWA, I would like to be able to sign up and login to the website so that I can quickly find new study groups. | 7 |
 | 10 | As a student looking for a study group for my exam, I would like to be able to filter by study group type and unit so that it is easier for me to find what I am look for | 5 |
