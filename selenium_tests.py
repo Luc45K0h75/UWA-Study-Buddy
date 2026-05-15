@@ -72,8 +72,43 @@ class TestStudyBuddy(unittest.TestCase):
         WebDriverWait(self.driver, 10).until(EC.url_contains("/login-page"))
         self.assertIn("/login-page", self.driver.current_url)
 
-    # Login
+    # Login Page Tests
+
+    # Test login page loads correctly
     def test_login_page_loads(self):
         self.driver.get(f"{BASE_URL}/login-page")
         self.assertIn("Login", self.driver.title)
-    
+
+    # Test that login works with correct credentials and redirects to profile page
+    def test_login_with_correct_credentials(self):
+        # Test depends on signup working correctly
+        # Create a new test user
+        random_id = str(random.randint(10000000, 99999999))
+        self.fill_signup_form(student_id=random_id, username=f"testuser{random_id}")
+
+        # Login with the created user
+        self.driver.get(f"{BASE_URL}/login-page")
+
+        # Login with the created user
+        self.driver.find_element(By.NAME, "username").send_keys(f"testuser{random_id}")
+        self.driver.find_element(By.NAME, "password").send_keys("password123")
+
+        # Submit the login form
+        self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+
+        # Redirects to profile page after login
+        WebDriverWait(self.driver, 10).until(EC.url_contains("/view-profile"))
+        self.assertIn("/view-profile", self.driver.current_url)
+
+    # Test that login does not work with incorrect credentials
+    def test_login_with_incorrect_credentials(self):
+        self.driver.get(f"{BASE_URL}/login-page")
+
+        # Generate an unregistered username and subsequent unregistered password
+        self.driver.find_element(By.NAME, "username").send_keys("wronguser") 
+        self.driver.find_element(By.NAME, "password").send_keys("wrongpassword")
+
+        # Submit the login form
+        self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        error_message = self.driver.find_element(By.CLASS_NAME, "alert-danger").text
+        self.assertIn("Invalid Username or Password, please try again", error_message)
