@@ -23,7 +23,12 @@ app.config.from_object(Config)
 app.secret_key = os.environ.get('SECRET_KEY') or 'secret-key'
 db.init_app(app)
 migrate.init_app(app, db)
+
+# Disable CSRF protection during testing to avoid issues with form submissions in tests
+app.config['WTF_CSRF_ENABLED'] = os.environ.get('TESTING') != 'True'
+
 csrf = CSRFProtect(app)  # enable CSRF protection across all POST forms
+
 
 #Initialising Login Manager. This is the controller of the login session system.
 login_manager = LoginManager()

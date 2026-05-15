@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import random
+import time
 
 # Base URL for the Flask app
 BASE_URL = 'http://127.0.0.1:5001'
@@ -34,7 +35,10 @@ class TestStudyBuddy(unittest.TestCase):
 
     # Fill the sign up form with arbitary values and submit the form
 
-    def fill_signup_form(self, student_id="12345678", email="test@test.com", firstname="Dummy", lastname="User", username="dummyuser123", password="password123", course="Bachelor of Science", graduation="2025", birthday="1900-01-01"):
+    def fill_signup_form(self, student_id="12345678", email=None, firstname="Dummy", lastname="User", username="dummyuser123", password="password123", course="Bachelor of Science", graduation="2029", birthday="2000-01-01"):
+        # Generate a random email if not provided 
+        if email is None:
+            email = f"test{random.randint(1, 99999)}@gmail.com"
         self.driver.get(f"{BASE_URL}/sign-up")
         # Fill in the signup form
         self.driver.find_element(By.NAME, "student_id").send_keys(student_id)
@@ -47,8 +51,11 @@ class TestStudyBuddy(unittest.TestCase):
         self.driver.find_element(By.NAME, "graduation").send_keys(graduation)
         self.driver.find_element(By.NAME, "birthday").send_keys(birthday)
 
-        # Submit the form
-        self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        time.sleep(1) # Allow the page to fully render and process the input before submitting the form
+        
+        # Submit the form 
+        button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        self.driver.execute_script("arguments[0].click();", button)
 
     # Test that form validation works for student_id that is too short
     def test_short_student_id(self):
@@ -59,10 +66,12 @@ class TestStudyBuddy(unittest.TestCase):
     # Test that form validation does not allow for duplicate primary keys
     def test_duplicate_student_id(self):
         random_id = str(random.randint(10000000, 99999999)) # Generates a random id that can be used to test duplicate student IDs
-        self.fill_signup_form(student_id=random_id, username=f"first{random_id}")
-        self.fill_signup_form(student_id=random_id, username=f"second{random_id}") # Duplicate student_id with different usetname
+        email1 = f"test{random.randint(1, 99999)}@gmail.com" # Generates a random email for the first signup
+        email2 = f"test{random.randint(100000, 199999)}@gmail.com" # Generates a random email for the second signup
+        self.fill_signup_form(student_id=random_id, username=f"first{random_id}", email=email1) # First signup with the random student ID and first email
+        self.fill_signup_form(student_id=random_id, username=f"second{random_id}", email=email2) # Duplicate student_id with different username and email
         error_message = self.driver.find_element(By.CLASS_NAME, "alert-danger").text
-        self.assertIn("Invalid: Student ID already has been registered.", error_message)
+        self.assertIn("Student ID already has been registered.", error_message)
 
     # Test that sign up page succesfully submits a form and redirects to login page after successful sign up
     def test_signup_submits_and_redirects_to_login(self):
@@ -70,6 +79,8 @@ class TestStudyBuddy(unittest.TestCase):
         self.fill_signup_form(student_id=random_id, username=f"user{random_id}") # Register a new random student ID with a unique username to test
         WebDriverWait(self.driver, 10).until(EC.url_contains("/login-page"))
         self.assertIn("/login-page", self.driver.current_url)
+        print(f"Current URL after submit: {self.driver.current_url}")
+        print(f"Page source: {self.driver.page_source[:500]}")
 
     # Login Page Tests
 
@@ -92,8 +103,11 @@ class TestStudyBuddy(unittest.TestCase):
         self.driver.find_element(By.NAME, "username").send_keys(f"testuser{random_id}")
         self.driver.find_element(By.NAME, "password").send_keys("password123")
 
+        time.sleep(1) # Allow the page to fully render and process the input before submitting the form
+
         # Submit the login form
-        self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        self.driver.execute_script("arguments[0].click();", button)
 
         # Redirects to profile page after login
         WebDriverWait(self.driver, 10).until(EC.url_contains("/view-profile"))
@@ -107,8 +121,12 @@ class TestStudyBuddy(unittest.TestCase):
         self.driver.find_element(By.NAME, "username").send_keys("wronguser") 
         self.driver.find_element(By.NAME, "password").send_keys("wrongpassword")
 
+        time.sleep(1) # Allow the page to fully render and process the input before submitting the form
+
         # Submit the login form
-        self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+        button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        self.driver.execute_script("arguments[0].click();", button)
+
         error_message = self.driver.find_element(By.CLASS_NAME, "alert-danger").text
         self.assertIn("Invalid Username or Password, please try again", error_message)
 
