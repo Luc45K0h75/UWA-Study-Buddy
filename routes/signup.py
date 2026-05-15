@@ -3,6 +3,7 @@ from extensions import db
 from datetime import datetime # For use in the query
 from models import User
 from werkzeug.security import generate_password_hash # For hashing the password
+from email_validator import validate_email, EmailNotValidError #To be used to check if user input email is valid
 
 # Creates the blueprint to handle signup.html
 sign_up_blueprint = Blueprint('sign_up', __name__)
@@ -43,6 +44,17 @@ def sign_up():
         if len(StudentID) != 8:
             return render_template("signup.html", error= "Invalid: Student ID must be 8 digits")
         
+        #Checking if the entered email is valid
+        try:
+            validate_email(Email)
+        except EmailNotValidError:
+            return render_template("signup.html", error= "Invalid email")
+
+        #Checking if profile has already been created, usin the email provided
+        check_email= if User.query.filter_by(Email=Email).first()
+        if check_email:
+             return render_template("signup.html", error="Email is already registered")
+        
         #Checking if a profile has already been created, using the student id
         existing_studentid=User.query.filter_by(StudentID=StudentID).first()
         if existing_studentid:
@@ -61,6 +73,9 @@ def sign_up():
         new_profile_user = User(StudentID=StudentID, Firstname=Firstname, Lastname=Lastname, Username=Username, Password=hashed_password, Course=Course, Email=Email, GraduationYear=GraduationYear, Birthday=Birthday)
         db.session.add(new_profile_user)
         db.session.commit()
+
+        #Creating a pop-up message, that tells user their account has been created and that they need to login. This will pop-up, after user has been redirected to login page
+        flash("Account has been created successfully! Please login and welcome to UWA Study Buddy :)")
 
         return redirect(url_for("login_page.login_page")) #once user is succcessfully signed up, they will be redirected to the login page
     return render_template("signup.html")

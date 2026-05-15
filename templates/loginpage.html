@@ -28,6 +28,19 @@
                 <div class="card-style card-padding">
                     <h5 class="text-center mb-4">Enter your details below</h5>
 
+                    <!-- Successful account creation message (flash in sign-up) -->
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-success alert-dismissible fade show text-center mt-3 shadow-sm" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                     <!-- Error message alert-->
                     {% if error %}
                     <div class="alert alert-danger">{{ error }}</div>
                     {% endif %}
