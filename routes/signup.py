@@ -51,7 +51,7 @@ def sign_up():
             return render_template("signup.html", error= "Invalid email")
 
         #Checking if profile has already been created, usin the email provided
-        check_email= User.query.filter_by(Email=Email).first()
+        check_email = User.query.filter_by(Email=Email).first()
         if check_email:
              return render_template("signup.html", error="Email is already registered")
         
