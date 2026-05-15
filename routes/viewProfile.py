@@ -1,19 +1,18 @@
-from flask import Blueprint, render_template  # Our group chose to use blueprints because we could keep the python for each page separate allowing us to avoide merge conflicts
+from flask import Blueprint, render_template
 from extensions import db
-from models import Groups, StudentGroups, User, Unit
+from models import Groups, StudentGroups, User, Unit, Session
 import sqlalchemy as sa
-from flask_login import login_required, current_user #using the flask-login extension to maintain user login-session
+from flask_login import login_required, current_user
+from datetime import datetime
 
 # Creates a blueprint for handling the View Profile page
 view_profile_blueprint = Blueprint('view_profile', __name__)
 
-#Paths to the page in the url browser
+# Paths to the page in the url browser
 @view_profile_blueprint.route("/view-profile")
-@login_required #ensuring that user is logged in before accessing this page
-
+@login_required
 def view_profile():
-    # Temporary user until login is connected properly
-    student_id = current_user.StudentID 
+    student_id = current_user.StudentID
 
     # Get the student's basic profile details
     user = db.session.execute(
@@ -49,6 +48,30 @@ def view_profile():
         .limit(3)
     ).mappings().all()
 
+    # Get the next upcoming session linked to one of the student's joined groups
+    current_time = int(datetime.now().timestamp())
+
+    next_session_row = db.session.execute(
+        sa.select(
+            Session.SessionDateTime,
+            Session.Location
+        )
+        .join(StudentGroups, Session.GroupID == StudentGroups.GroupID)
+        .where(
+            StudentGroups.StudentID == student_id,
+            Session.SessionDateTime >= current_time
+        )
+        .order_by(Session.SessionDateTime)
+        .limit(1)
+    ).mappings().first()
+
+    next_session = None
+    if next_session_row:
+        next_session = {
+            "SessionDateTime": datetime.fromtimestamp(next_session_row["SessionDateTime"]).strftime("%d %b %Y, %I:%M %p"),
+            "Location": next_session_row["Location"] if next_session_row["Location"] else "Not added yet"
+        }
+
     # Simple stats for the profile page
     stats = {
         "groups_joined": len(joined_groups),
@@ -62,5 +85,6 @@ def view_profile():
         user=user,
         preferred_units=preferred_units,
         joined_groups=joined_groups,
-        stats=stats
+        stats=stats,
+        next_session=next_session
     )
