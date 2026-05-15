@@ -76,11 +76,13 @@ def join_group():
         .where(StudentGroups.StudentID == student_id, StudentGroups.GroupID == group_id)
     ).first()
 
+    # If the user is already in the group, flash a message
     if existing_membership: 
         flash("You have already joined this group!")
         return redirect(url_for('view_groups.view_groups'))
 
-    added_student = StudentGroups(StudentID=student_id, GroupID=group_id, RoleID=1)  # Added as a member by default (role id = 1)
+    # Otherwise add the student to the group
+    added_student = StudentGroups(StudentID=student_id, GroupID=group_id, RoleID=1) # Added as a member by default (role id = 1)
     db.session.add(added_student)
     db.session.commit() 
     flash("You have successfully joined the group!")
