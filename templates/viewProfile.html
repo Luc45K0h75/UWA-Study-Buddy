@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col">
                 <h2 class="display-6">Profile Details</h2>
-                <p class="lead">A quick overview of this student's study preferences and availability.</p>
+                <p class="lead">A quick overview of this student's study information.</p>
             </div>
         </div>
 
@@ -60,11 +60,14 @@
 
             <div class="col-md-4">
                 <div class="card-style card-padding h-100">
-                    <h5 class="text-center" style="color: purple;">Availability</h5>
+                    <h5 class="text-center" style="color: purple;">Next Study Session</h5>
                     <hr>
-                    <p class="mb-2">Preferred Day: {Day Here}</p>
-                    <p class="mb-2">Preferred Time: {Time Here}</p>
-                    <p class="mb-2">Location: {Library / Online / Campus}</p>
+                    {% if next_session %}
+                        <p class="mb-2">Date/Time: {{ next_session['SessionDateTime'] }}</p>
+                        <p class="mb-2">Location: {{ next_session['Location'] }}</p>
+                    {% else %}
+                        <p class="mb-2">No upcoming sessions yet.</p>
+                    {% endif %}
                 </div>
             </div>
 
@@ -72,9 +75,9 @@
                 <div class="card-style card-padding h-100">
                     <h5 class="text-center" style="color: purple;">Study Style</h5>
                     <hr>
-                    <p class="mb-2">Group Study: {Yes/No}</p>
-                    <p class="mb-2">Quiet Study: {Yes/No}</p>
-                    <p class="mb-2">Exam Prep Focus: {Yes/No}</p>
+                    <p class="mb-2">Group Study: Not added yet.</p>
+                    <p class="mb-2">Quiet Study: Not added yet.</p>
+                    <p class="mb-2">Exam Prep Focus: Not added yet.</p>
                 </div>
             </div>
         </div>

@@ -85,6 +85,11 @@
     border-radius: 5px;
 }
 
+.navbar .nav-link.active {
+    border-bottom: 2px solid white;
+    opacity: 1 !important;
+}
+
 /* For the search bar */
 .searchbar-colours {
     background-color: darkblue !important;
