@@ -23,6 +23,15 @@
             </div>
         </div>
 
+        <!-- Flash messages: shows leave success or error -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card-style card-padding">
@@ -35,6 +44,7 @@
                                     <th>Description</th>
                                     <th>Role</th>
                                     <th>Sessions</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
@@ -54,6 +64,13 @@
                                             <span class="text-muted">No sessions yet</span>
                                         {% endif %}
                                     </td>
+                                    <td>
+                                        <!-- Leave group form — posts to the leave_group route -->
+                                        <form method="POST" action="{{ url_for('my_groups.leave_group', group_id=sg['GroupID']) }}" onsubmit="return confirm('Are you sure you want to leave this group?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Leave</button>
+                                        </form>
+                                    </td>
                                 </tr>
 
                                 <!-- Session sub-rows for this group -->
@@ -66,6 +83,7 @@
                                     <td style="font-size: 0.9em;">{{ session['Description'] or '—' }}</td>
                                     <td></td>
                                     <td style="font-size: 0.9em;">📍 {{ session['Location'] }}</td>
+                                    <td></td>
                                 </tr>
                                 {% endfor %}
 
