@@ -23,28 +23,70 @@
             </div>
         </div>
 
+        <!-- Flash messages: shows leave success or error -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card-style card-padding">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover mb-0">
+                        <table class="table table-hover mb-0">
                             <!-- Table headers-->
                             <thead>
                                 <tr>
                                     <th>Group Name</th>
                                     <th>Description</th>
                                     <th>Role</th>
+                                    <th>Sessions</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
-                            <!-- Displays groups -->
+                            <!-- Displays groups, with sessions nested underneath each one -->
                             <tbody>
                                 {% for sg in studentGroups %}
-                                <tr>
+                                <!-- Group row -->
+                                <tr class="table-light fw-semibold">
                                     <td>{{ sg['GroupName'] }}</td>
                                     <td>{{ sg['Description'] }}</td>
                                     <td>{{ sg['Type'] }}</td>
+                                    <td>
+                                        {% set group_sessions = sessions_by_group.get(sg['GroupID'], []) %}
+                                        {% if group_sessions %}
+                                            {{ group_sessions | length }} session(s)
+                                        {% else %}
+                                            <span class="text-muted">No sessions yet</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <!-- Leave group form — posts to the leave_group route -->
+                                        <form method="POST" action="{{ url_for('my_groups.leave_group', group_id=sg['GroupID']) }}" onsubmit="return confirm('Are you sure you want to leave this group?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Leave</button>
+                                        </form>
+                                    </td>
                                 </tr>
+
+                                <!-- Session sub-rows for this group -->
+                                {% set group_sessions = sessions_by_group.get(sg['GroupID'], []) %}
+                                {% for session in group_sessions %}
+                                <tr style="background-color: #f3eaff;">
+                                    <td class="ps-4 text-muted" style="font-size: 0.9em;">
+                                        ↳ <strong>{{ session['SessionDateTime'] }}</strong>
+                                    </td>
+                                    <td style="font-size: 0.9em;">{{ session['Description'] or '—' }}</td>
+                                    <td></td>
+                                    <td style="font-size: 0.9em;">📍 {{ session['Location'] }}</td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+
                                 {% endfor %}
                             </tbody>
                         </table>
