@@ -139,3 +139,31 @@ class TestStudyBuddy(unittest.TestCase):
         # Should be redirected to login page
         WebDriverWait(self.driver, 10).until(EC.url_contains("/login-page"))
         self.assertIn("/login-page", self.driver.current_url)
+
+    # My Groups Tests
+
+    # Test that /my-groups redirects to login if the user is not logged in
+    def test_my_groups_unauthenticated_redirect(self):
+        self.driver.get(f"{BASE_URL}/my-groups")
+        WebDriverWait(self.driver, 10).until(EC.url_contains("/login-page"))
+        self.assertIn("/login-page", self.driver.current_url)
+
+    # Test that the My Groups page loads and the Sessions column is present after logging in
+    def test_my_groups_sessions_column_exists(self):
+        # Create and log in a new user
+        random_id = str(random.randint(10000000, 99999999))
+        self.fill_signup_form(student_id=random_id, username=f"testuser{random_id}")
+        self.driver.get(f"{BASE_URL}/login-page")
+        self.driver.find_element(By.NAME, "username").send_keys(f"testuser{random_id}")
+        self.driver.find_element(By.NAME, "password").send_keys("password123")
+        time.sleep(1)
+        button = self.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        self.driver.execute_script("arguments[0].click();", button)
+        WebDriverWait(self.driver, 10).until(EC.url_contains("/view-profile"))
+
+        # Navigate to My Groups and check the Sessions column header is present
+        self.driver.get(f"{BASE_URL}/my-groups")
+        WebDriverWait(self.driver, 10).until(EC.url_contains("/my-groups"))
+        headers = self.driver.find_elements(By.TAG_NAME, "th")
+        header_texts = [h.text for h in headers]
+        self.assertIn("Sessions", header_texts)
