@@ -6,7 +6,7 @@ UWA Study Buddy is a website created as our project in the CITS3403 Agile Web De
 | Member | Role |
 | :---: | :--- |
 | Lucas Koh | Created frontend and backend for the home page, view groups page (with join group functionality) and my groups page. Made the database and wrote the selenium tests. Coded `app.py` and `models.py`. |
-| Syifa Rahma Tsabita | Created the frontend and backend for the add groups page and the add sessions page. Responsible for creating all of the CSRF tokens across the website. |
+| Syifa Rahma Tsabita | Created the frontend and backend for the add groups page and the add sessions page. Responsible for creating all of the CSRF tokens across the website. Also contributed to the selenium tests. |
 | Bhavya Chhikara | Created the frontend and backend for the login and signup pages. Responsible for all of the authentication, authorisation and current user logic on the website. Wrote the unit tests. |
 | Hamish Haslam | Created the front end and back end of the view profile page and responsible for the design of the website. |
 
@@ -61,9 +61,37 @@ TESTING=True flask run --port 5001
 ```
 
 Second terminal
-**Terminal 2 — Run the tests:**
 ```bash
-python -m pytest tests/test_selenium.py -v
+python3 -m pytest tests/selenium_tests.py -v
+```
+
+### Unit Tests
+* Again, we would recommendusing two terminal windows with the following commands:
+
+First terminal (to run flask and disable CSRF so the tests run correctly)
+```bash
+TESTING=True flask run --port 5001
+```
+Second terminal
+1. Add Session Test
+```bash
+python3 -m pytest tests/addsession_test.py -v
+```
+2. Create Group Test
+```bash
+python3 -m pytest tests/creategroup_test.py -v
+```
+3. Login Test
+```bash
+python3 -m pytest tests/login_test.py -v
+```
+4. Sign Up Test
+```bash
+python3 -m pytest tests/signup_test.py -v
+```
+5. View Profile Test
+```bash
+python3 -m pytest tests/viewprofile_test.py -v
 ```
 
 ## Pages of the Website
